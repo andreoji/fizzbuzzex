@@ -1,0 +1,29 @@
+<h1>Listing Favourites</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th><%= pagination_text(@favourites) %></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+  
+<%= for favourite <- @favourites.list do %>
+    <tr>
+      <td>
+        <span><%= checkbox :favourite, :number, value: favourite.favourite %></span>
+        <span><%= favourite.number %> **** <%= favourite.value %></span>
+      </td>
+      <td>
+        <span><%= link "Show", to: Routes.favourite_path(@conn, :show, favourite.number) %></span>
+        <span><%= link "Edit", to: Routes.favourite_path(@conn, :edit, favourite.number) %></span>
+        <span><%= link "Delete", to: Routes.favourite_path(@conn, :delete, favourite.number), method: :delete, data: [confirm: "Are you sure?"] %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+<%= pagination_links(@conn, @favourites, &Routes.favourite_path/3) %>
+<span><%= link "New Favourite", to: Routes.favourite_path(@conn, :new) %></span>

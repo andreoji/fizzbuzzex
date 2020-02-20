@@ -18,10 +18,12 @@ defmodule FizzbuzzexWeb.Router do
 
     get "/", PageController, :index
     resources("/sessions", SessionController, only: [:new, :create])
+    resources "/favourites", FavouriteController
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", FizzbuzzexWeb do
-  #   pipe_through :api
-  # end
+  scope "/api", FizzbuzzexWeb.Api, as: :api do
+    pipe_through :api
+    resources "/favourites", FavouriteController
+  end
 end

@@ -42,6 +42,7 @@ defmodule FizzbuzzexWeb do
       import FizzbuzzexWeb.ErrorHelpers
       import FizzbuzzexWeb.Gettext
       alias FizzbuzzexWeb.Router.Helpers, as: Routes
+      import FizzbuzzexWeb.PaginationHelpers
     end
   end
 

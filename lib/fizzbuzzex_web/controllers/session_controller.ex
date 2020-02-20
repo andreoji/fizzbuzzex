@@ -12,7 +12,7 @@ defmodule FizzbuzzexWeb.SessionController do
         conn
         |> Fizzbuzzex.Auth.login(user)
         |> put_flash(:info, "Welcome back!")
-        #|> redirect(to: Routes.favourite_path(Endpoint, :new))
+        |> redirect(to: Routes.favourite_path(Endpoint, :new))
 
       {:error, _reason} ->
         conn
