@@ -4,10 +4,10 @@ defmodule Fizzbuzzex.Favourites.Pagination do
   alias Fizzbuzzex.Favourites.Fizzbuzz
 
 def page(page, per_page) do
-    page =  page_to_int(page)
-    per_page = per_page_to_int(per_page)
+    page =  to_int(page)
+    per_page = to_int(per_page)
     numbers = Fizzbuzz.current_page_numbers(page, per_page)
-    has_next = (length(numbers) == per_page)
+    has_next =  (numbers |> List.last).number < Fizzbuzz.max
     has_prev = page > 1
     %{
       per_page: per_page,
@@ -16,16 +16,13 @@ def page(page, per_page) do
       prev_page: page - 1,
       next_page: page + 1,
       page: page,
-      first: (page - 1) * per_page + 1,
-      last: Enum.min([page * per_page, Fizzbuzz.max]),
+      first: numbers |> List.first,
+      last: numbers |> List.last,
       count: Fizzbuzz.max,
       list: numbers
     }
   end
 
-  defp page_to_int(page) when is_binary(page), do: page |> String.to_integer
-  defp page_to_int(page), do: page
-
-  defp per_page_to_int(per_page) when is_binary(per_page), do: per_page |> String.to_integer
-  defp per_page_to_int(per_page), do: per_page
+  defp to_int(p) when is_binary(p), do: p |> String.to_integer
+  defp to_int(p), do: p
 end

@@ -6,7 +6,7 @@ defmodule FizzbuzzexWeb.PaginationHelpers do
 
   def pagination_text(list) do
     ~e"""
-    Displaying <%= list.first %>-<%= list.last %> of <%= list.count %>
+    Displaying <%= list.first.number %>-<%= list.last.number %> of <%= list.count %>
     """
   end
 
