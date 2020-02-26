@@ -1,5 +1,14 @@
 defmodule FizzbuzzexWeb.Endpoint do
+  @session_options [
+    store: :cookie,
+    key: "_fizzbuzzex_key",
+    signing_salt: "CrzMo2Ix"
+  ]
+
   use Phoenix.Endpoint, otp_app: :fizzbuzzex
+
+  socket "/live", Phoenix.LiveView.Socket,
+    websocket: [connect_info: [session: @session_options]]
 
   socket "/socket", FizzbuzzexWeb.UserSocket,
     websocket: true,
@@ -37,10 +46,7 @@ defmodule FizzbuzzexWeb.Endpoint do
   # The session will be stored in the cookie and signed,
   # this means its contents can be read but not tampered with.
   # Set :encryption_salt if you would also like to encrypt it.
-  plug Plug.Session,
-    store: :cookie,
-    key: "_fizzbuzzex_key",
-    signing_salt: "CrzMo2Ix"
+  plug Plug.Session, @session_options
 
   plug FizzbuzzexWeb.Router
 end

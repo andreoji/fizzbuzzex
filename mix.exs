@@ -33,12 +33,12 @@ defmodule Fizzbuzzex.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:phoenix, "~> 1.4.11"},
+      {:phoenix, "~> 1.4.14"},
       {:phoenix_pubsub, "~> 1.1"},
       {:phoenix_ecto, "~> 4.0"},
       {:ecto_sql, "~> 3.1"},
       {:postgrex, ">= 0.0.0"},
-      {:phoenix_html, "~> 2.11"},
+      {:phoenix_html, "~> 2.14"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
@@ -47,7 +47,8 @@ defmodule Fizzbuzzex.MixProject do
       {:comeonin, "~> 5.1"},
       {:bcrypt_elixir, "~> 2.0"},
       {:poison, "~> 4.0"},
-      {:ex_machina, "~> 2.3"}
+      {:ex_machina, "~> 2.3"},
+      {:phoenix_live_view, "~> 0.7.1"}
     ]
   end
 

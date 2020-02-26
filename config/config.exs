@@ -15,7 +15,8 @@ config :fizzbuzzex, FizzbuzzexWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "qu2WW07UahJf7ijZvdSkilWT7yZ4n5q8d0wzO66omPL7WNRDJVYdfddsrekM0IzY",
   render_errors: [view: FizzbuzzexWeb.ErrorView, accepts: ~w(html json)],
-  pubsub: [name: Fizzbuzzex.PubSub, adapter: Phoenix.PubSub.PG2]
+  pubsub: [name: Fizzbuzzex.PubSub, adapter: Phoenix.PubSub.PG2],
+  live_view: [signing_salt: "ePN6ThxxJdSuhyFXFWn7KsqZwxVpD+4T"]
 
 # Configures Elixir's Logger
 config :logger, :console,
@@ -24,6 +25,8 @@ config :logger, :console,
 
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
+
+config :phoenix, template_engines: [leex: Phoenix.LiveView.Engine]
 
 # Configures Guardian
 config :fizzbuzzex, Fizzbuzzex.Auth.Guardian,
