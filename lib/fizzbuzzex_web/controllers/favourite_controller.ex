@@ -3,12 +3,12 @@ defmodule FizzbuzzexWeb.FavouriteController do
 
   alias Fizzbuzzex.Favourites
   alias Fizzbuzzex.Favourites.Favourite
+  alias Phoenix.LiveView.Controller
 
   def index(conn, params) do
-    page = params["page"] || 1
-    per_page = params["per_page"] || 5
-    favourites = Favourites.list_favourites(page, per_page)
-    render(conn, "index.html", favourites: favourites)
+    Controller.live_render(conn, FizzbuzzexWeb.FavouriteLive, session: %{
+      "current_user_id" => get_session(conn, :user_id)
+    })
   end
 
   def new(conn, _params) do

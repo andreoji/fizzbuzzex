@@ -11,16 +11,24 @@ defmodule FizzbuzzexWeb.Router do
     plug :put_layout, {FizzbuzzexWeb.LayoutView, :app}
   end
 
+  pipeline :auth do
+    plug(Fizzbuzzex.Auth.AuthAccessPipeline)
+  end
+
   pipeline :api do
     plug :accepts, ["json"]
   end
 
   scope "/", FizzbuzzexWeb do
     pipe_through :browser
-
     get "/", PageController, :index
     resources("/sessions", SessionController, only: [:new, :create])
-    resources "/favourites", FavouriteController
+  end
+
+  scope "/", FizzbuzzexWeb do
+    pipe_through [:browser, :auth]
+    live "/favourites", FavouriteLive
+    resources "/sessions", SessionController, only: [:delete]
   end
 
   # Other scopes may use custom stacks.

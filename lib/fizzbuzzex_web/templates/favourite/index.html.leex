@@ -1,0 +1,20 @@
+<h1>Listing Favourites</h1>
+<table>
+  <thead>
+    <tr>
+      <th><%= pagination_text(@favourites) %></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for favourite <- @favourites.list do %>
+    <tr>
+      <td>
+        <span><%= checkbox :favourite, :number, value: favourite.favourite %></span>
+        <span><%= favourite.number %> **** <%= favourite.value %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+<%= pagination_links(@socket, @favourites, &Routes.live_path/3) %>

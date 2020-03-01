@@ -1,6 +1,7 @@
 defmodule FizzbuzzexWeb.SessionController do
   use FizzbuzzexWeb, :controller
   alias FizzbuzzexWeb.Endpoint
+  alias Phoenix.LiveView.Controller
 
   def new(conn, _) do
     render(conn, "new.html")
@@ -12,7 +13,7 @@ defmodule FizzbuzzexWeb.SessionController do
         conn
         |> Fizzbuzzex.Auth.login(user)
         |> put_flash(:info, "Welcome back!")
-        |> redirect(to: Routes.favourite_path(Endpoint, :new))
+        |> redirect(to: "/favourites")
 
       {:error, _reason} ->
         conn
