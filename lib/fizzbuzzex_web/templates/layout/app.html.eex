@@ -19,13 +19,12 @@
         <nav role="navigation">
           <span class="logo"></span>
           <ol class="breadcrumb text-right">
-            <%= if current_user = assigns[:current_user] do %>
+            <%= if Pow.Plug.current_user(@conn) do %>
               <li>
-                <%= link "Logout", to: Routes.session_path(@conn, :delete, current_user),
-                                        method: "delete" %>
+                <%= link "Sign out", to: Routes.pow_session_path(@conn, :delete), method: :delete %>
               </li>
             <% else %>
-               <li><%= link "Log In", to: Routes.session_path(@conn, :new) %></li>
+               <li><%= link "Sign in", to: Routes.pow_session_path(@conn, :new) %></li>
             <% end %>
           </ol>
         </nav>

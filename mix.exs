@@ -43,12 +43,10 @@ defmodule Fizzbuzzex.MixProject do
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
-      {:guardian, "~> 2.0"},
-      {:comeonin, "~> 5.1"},
-      {:bcrypt_elixir, "~> 2.0"},
       {:poison, "~> 4.0"},
       {:ex_machina, "~> 2.3"},
-      {:phoenix_live_view, "~> 0.7.1"}
+      {:phoenix_live_view, "~> 0.7.1"},
+      {:pow, "~> 1.0.18"}
     ]
   end
 

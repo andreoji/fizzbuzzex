@@ -11,9 +11,10 @@ defmodule Fizzbuzzex.Application do
       # Start the Ecto repository
       Fizzbuzzex.Repo,
       # Start the endpoint when the application starts
-      FizzbuzzexWeb.Endpoint
+      FizzbuzzexWeb.Endpoint,
       # Starts a worker by calling: Fizzbuzzex.Worker.start_link(arg)
       # {Fizzbuzzex.Worker, arg},
+      Pow.Store.Backend.MnesiaCache
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

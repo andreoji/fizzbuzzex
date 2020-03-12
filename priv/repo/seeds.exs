@@ -12,55 +12,63 @@
 Fizzbuzzex.Accounts.create_user(%{
   name: "john lennon",
   username: "johnl",
-  password: "j123l",
+  password: "j123456l",
+  confirm_password: "j123456l",
   email: "john@acme.com"
 })
 
 Fizzbuzzex.Accounts.create_user(%{
   name: "paul mcartney",
   username: "paulm",
-  password: "p123m",
+  password: "p123456m",
+  confirm_password: "p123456m",
   email: "paul@acme.com"
 })
 
 Fizzbuzzex.Accounts.create_user(%{
   name: "george harrison",
   username: "georgeh",
-  password: "g123h",
+  password: "g123456h",
+  confirm_password: "g123456h",
   email: "george@acme.com"
 })
 
 Fizzbuzzex.Accounts.create_user(%{
   name: "ringo starr",
   username: "ringos",
-  password: "r123s",
+  password: "r123456s",
+  confirm_password: "r123456s",
   email: "ringo@acme.com"
 })
 
 Fizzbuzzex.Accounts.create_user(%{
   name: "mick jagger",
   username: "mickj",
-  password: "m123j",
+  password: "m123456j",
+  confirm_password: "m123456j",
   email: "mick@acme.com"
 })
 
 Fizzbuzzex.Accounts.create_user(%{
   name: "keith richards",
   username: "keithr",
-  password: "k123r",
+  password: "k123456r",
+  confirm_password: "k123456r",
   email: "keith@acme.com"
 })
 
 Fizzbuzzex.Accounts.create_user(%{
   name: "charlie watts",
   username: "charliew",
-  password: "c123w",
+  password: "c123456w",
+  confirm_password: "c123456w",
   email: "charlie@acme.com"
 })
 
 Fizzbuzzex.Accounts.create_user(%{
   name: "brian jones",
   username: "brianj",
-  password: "b123j",
+  password: "b123456j",
+  confirm_password: "b123456j",
   email: "brian@acme.com"
 })

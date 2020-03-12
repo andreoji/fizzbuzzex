@@ -1,5 +1,6 @@
 defmodule FizzbuzzexWeb.Router do
   use FizzbuzzexWeb, :router
+  use Pow.Phoenix.Router
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -11,24 +12,29 @@ defmodule FizzbuzzexWeb.Router do
     plug :put_layout, {FizzbuzzexWeb.LayoutView, :app}
   end
 
-  pipeline :auth do
-    plug(Fizzbuzzex.Auth.AuthAccessPipeline)
+  pipeline :protected do
+    plug Pow.Plug.RequireAuthenticated,
+      error_handler: Pow.Phoenix.PlugErrorHandler
   end
 
   pipeline :api do
     plug :accepts, ["json"]
   end
 
-  scope "/", FizzbuzzexWeb do
+  scope "/" do
     pipe_through :browser
-    get "/", PageController, :index
-    resources("/sessions", SessionController, only: [:new, :create])
+
+    pow_routes()
   end
 
   scope "/", FizzbuzzexWeb do
-    pipe_through [:browser, :auth]
+    pipe_through :browser
+    get "/", PageController, :index
+  end
+
+  scope "/", FizzbuzzexWeb do
+    pipe_through [:browser, :protected]
     live "/favourites", FavouriteLive
-    resources "/sessions", SessionController, only: [:delete]
   end
 
   # Other scopes may use custom stacks.

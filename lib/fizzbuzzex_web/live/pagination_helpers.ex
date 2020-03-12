@@ -1,13 +1,11 @@
 defmodule FizzbuzzexWeb.PaginationHelpers do
   import Phoenix.HTML
-  import Phoenix.HTML.Form
   import Phoenix.HTML.Link
   import Phoenix.HTML.Tag
-  import Phoenix.LiveView.Helpers
 
-  def pagination_text(list) do
+  def pagination_text(favourites) do
     ~e"""
-    Displaying <%= list.first.number %>-<%= list.last.number %> of <%= list.count %>
+    Displaying <%= favourites.first.number %>-<%= favourites.last.number %> of <%= favourites.count %>
     """
   end
 
@@ -23,13 +21,19 @@ defmodule FizzbuzzexWeb.PaginationHelpers do
 
   defp do_prev(socket, list, route) do
     content_tag :span do
-      live_patch("Previous", to: route.(socket, FizzbuzzexWeb.FavouriteLive, [page: list.prev_page, per_page: list.per_page]))
+      link("Previous",
+        to: route.(socket, FizzbuzzexWeb.FavouriteLive, [page: list.prev_page, per_page: list.per_page]),
+        phx_click: :prev
+      )
     end
   end
 
   defp do_next(socket, list, route) do
     content_tag :span do
-      live_patch("Next", to: route.(socket, FizzbuzzexWeb.FavouriteLive, [page: list.next_page, per_page: list.per_page]))
+      link("Next",
+        to: route.(socket, FizzbuzzexWeb.FavouriteLive, [page: list.next_page, per_page: list.per_page]),
+        phx_click: "next"
+      )
     end
   end
 

@@ -1,3 +1,10 @@
 <div>
   <h2>Fizzbuzz!</h2>
 </div>
+<%= if @current_user do %>
+  <%= live_render(@conn,
+                  FizzbuzzexWeb.FavouriteLive,
+                  session: %{"current_user" => @current_user,
+                             "page" => @conn.params["page"],
+                             "per_page" => @conn.params["per_page"]}) %>
+<% end %>

@@ -48,5 +48,9 @@ defmodule FizzbuzzexWeb.Endpoint do
   # Set :encryption_salt if you would also like to encrypt it.
   plug Plug.Session, @session_options
 
+  plug Pow.Plug.Session,
+    otp_app: :fizzbuzzex,
+    cache_store_backend: Pow.Store.Backend.MnesiaCache
+
   plug FizzbuzzexWeb.Router
 end
