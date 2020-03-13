@@ -16,9 +16,8 @@ defmodule Fizzbuzzex.Favourites do
       [%Favourite{}, ...]
 
   """
-  def list_favourites(page, per_page) do
+  def current_page(page, per_page) do
     Pagination.page(page, per_page)
-    #Repo.all(Favourite)
   end
 
   @doc """

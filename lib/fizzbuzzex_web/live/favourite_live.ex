@@ -22,25 +22,25 @@ defmodule FizzbuzzexWeb.FavouriteLive do
     {:ok, socket}
   end
 
-  def handle_event("next", _, %{assigns: %{favourites: favourites}} = socket) do
+  def handle_event("next", _, %{assigns: %{pagination: pagination}} = socket) do
     socket =
       socket
-      |> assign(page: favourites.next_page, per_page: favourites.per_page)
+      |> assign(page: pagination.next_page, per_page: pagination.per_page)
       |> fetch
     {:noreply, socket}
   end
-  def handle_event("prev", _, %{assigns: %{favourites: favourites}} = socket) do
+  def handle_event("prev", _, %{assigns: %{pagination: pagination}} = socket) do
     socket =
       socket
-      |> assign(page: favourites.prev_page, per_page: favourites.per_page)
+      |> assign(page: pagination.prev_page, per_page: pagination.per_page)
       |> fetch
     {:noreply, socket}
   end
 
   defp fetch(socket) do
     %{page: page, per_page: per_page} = socket.assigns
-    favourites = Favourites.list_favourites(page, per_page)
-    assign(socket, favourites: favourites)
+    pagination = Favourites.current_page(page, per_page)
+    assign(socket, pagination: pagination)
   end
 
   defp assign_pagination(socket, {page, per_page}) do
@@ -59,6 +59,7 @@ defmodule FizzbuzzexWeb.FavouriteLive do
     {page, ""} = Integer.parse(params["page"] || "1")
     page
   end
+  defp parse_page(%{}), do: 1
   defp parse_page(page) do
     {page, ""} = Integer.parse(page || "1")
     page
@@ -68,6 +69,7 @@ defmodule FizzbuzzexWeb.FavouriteLive do
     {per_page, ""} = Integer.parse(params["per_page"] || "15")
     per_page
   end
+  defp parse_per_page(%{}), do: 15
   defp parse_per_page(per_page) do
     {per_page, ""} = Integer.parse(per_page || "15")
     per_page

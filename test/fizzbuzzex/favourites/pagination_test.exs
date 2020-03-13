@@ -8,7 +8,7 @@ defmodule Fizzbuzzex.Favourites.Pagination.Test do
       page = Pagination.page(1, 15)
       refute page.has_prev
       assert page.has_next
-      assert page.list == [
+      assert page.numbers == [
         %{favourite: false, number: 1, value: 1},
         %{favourite: false, number: 2, value: 2},
         %{favourite: false, number: 3, value: "fizz"},
@@ -33,7 +33,7 @@ defmodule Fizzbuzzex.Favourites.Pagination.Test do
       page = Pagination.page(2, 5)
       assert page.has_prev
       assert page.has_next
-      assert page.list == [
+      assert page.numbers == [
         %{favourite: false, number: 6, value: "fizz"},
         %{favourite: false, number: 7, value: 7},
         %{favourite: false, number: 8, value: 8},
@@ -48,7 +48,7 @@ defmodule Fizzbuzzex.Favourites.Pagination.Test do
       page = Pagination.page(66_666_666_667, 15)
       assert page.has_prev
       refute page.has_next
-      assert page.list == [
+      assert page.numbers == [
         %{favourite: false, number: 999999999991, value: 999999999991},
         %{favourite: false, number: 999999999992, value: 999999999992},
         %{favourite: false, number: 999999999993, value: "fizz"},

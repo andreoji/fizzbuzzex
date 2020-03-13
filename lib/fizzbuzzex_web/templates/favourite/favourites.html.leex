@@ -2,19 +2,19 @@
 <table>
   <thead>
     <tr>
-      <th><%= pagination_text(@favourites) %></th>
+      <th><%= pagination_text(@pagination) %></th>
       <th></th>
     </tr>
   </thead>
   <tbody>
-<%= for favourite <- @favourites.list do %>
+<%= for n <- @pagination.numbers do %>
     <tr>
       <td>
-        <span><%= checkbox :favourite, :number, value: favourite.favourite %></span>
-        <span><%= favourite.number %> **** <%= favourite.value %></span>
+        <span><%= checkbox :favourite, :number, value: n.favourite %></span>
+        <span><%= n.number %> **** <%= n.value %></span>
       </td>
     </tr>
 <% end %>
   </tbody>
 </table>
-<%= pagination_links(@socket, @favourites, &Routes.live_path/3) %>
+<%= pagination_links(@socket, @pagination, &Routes.live_path/3) %>
