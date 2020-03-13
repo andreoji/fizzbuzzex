@@ -8,16 +8,18 @@ defmodule FizzbuzzexWeb.FavouriteLive do
   end
 
   def mount(:not_mounted_at_router, %{"current_user" => _current_user, "page" => page, "per_page" => per_page}, socket) do
+    params = {page, per_page} |> parse_params
     socket =
       socket
-      |> assign_pagination({page, per_page})
+      |> assign(params)
       |> fetch
     {:ok, socket}
   end
   def mount(params, _session, socket) do
+    params = params |> parse_params
     socket =
       socket
-      |> assign_pagination(params)
+      |> assign(params)
       |> fetch
     {:ok, socket}
   end
@@ -43,16 +45,16 @@ defmodule FizzbuzzexWeb.FavouriteLive do
     assign(socket, pagination: pagination)
   end
 
-  defp assign_pagination(socket, {page, per_page}) do
+  defp parse_params({page, per_page}) do
     page = page |> parse_page
     per_page = per_page |> parse_per_page
-    socket |> assign(page: page, per_page: per_page)
+    %{page: page, per_page: per_page}
   end
 
-  defp assign_pagination(socket, params) do
+  defp parse_params(params) do
     page = params |> parse_page
     per_page = params |> parse_per_page
-    socket |> assign(page: page, per_page: per_page)
+    %{page: page, per_page: per_page}
   end
 
   defp parse_page(%{"page" => _page} = params) do
