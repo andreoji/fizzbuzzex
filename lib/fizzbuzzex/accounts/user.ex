@@ -3,6 +3,7 @@ defmodule Fizzbuzzex.Accounts.User do
   use Pow.Ecto.Schema
   import Ecto.Changeset
   alias Fizzbuzzex.Accounts.User
+  alias Fizzbuzzex.Favourites.Favourite
 
   @moduledoc false
 
@@ -10,7 +11,7 @@ defmodule Fizzbuzzex.Accounts.User do
     pow_user_fields()
     field(:name, :string)
     field(:username, :string)
-
+    has_many :favourites, Favourite
     timestamps()
   end
 

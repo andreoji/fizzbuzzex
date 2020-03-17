@@ -24,6 +24,7 @@ defmodule Fizzbuzzex.DataCase do
       import Ecto.Changeset
       import Ecto.Query
       import Fizzbuzzex.DataCase
+      import FizzbuzzexWeb.TestHelpers.NamedSetup
     end
   end
 

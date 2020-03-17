@@ -2,10 +2,8 @@ defmodule Fizzbuzzex.Favourites do
   @moduledoc """
   The Favourites context.
   """
-
   import Ecto.Query, warn: false
   alias Fizzbuzzex.Repo
-  alias Fizzbuzzex.Favourites
   alias Fizzbuzzex.Favourites.{Favourite, Pagination}
 
   def current_page(page, per_page, user) do
@@ -33,7 +31,7 @@ defmodule Fizzbuzzex.Favourites do
   end
 
   def toggle_favourite(number, user) do
-    with favourite <- number |> Favourites.get_favourite(user),
+    with favourite <- number |> get_favourite(user),
       {:ok, favourite} <- number |> do_toggle_favourite(user, favourite) do
       {:ok, favourite}
     else
@@ -50,8 +48,8 @@ defmodule Fizzbuzzex.Favourites do
     end
   end
 
-  defp do_toggle_favourite(_number, _user, %Favourite{state: true} = favourite) do
-    with favourite <- favourite |> Ecto.Changeset.change(state: false),
+  defp do_toggle_favourite(_number, _user, %Favourite{state: state} = favourite) do
+    with favourite <- favourite |> Ecto.Changeset.change(state: !state),
       {:ok, favourite} <- favourite |> Repo.update do
       {:ok, favourite}
     else
@@ -59,16 +57,7 @@ defmodule Fizzbuzzex.Favourites do
     end
   end
 
-  defp do_toggle_favourite(_number, _user, %Favourite{state: false} = favourite) do
-    with favourite <- favourite |> Ecto.Changeset.change(state: true),
-      {:ok, favourite} <- favourite |> Repo.update do
-      {:ok, favourite}
-    else
-      error -> error
-    end
-  end
-
-  def get_favourite(number, user) do
+  defp get_favourite(number, user) do
     from(f in Favourite,
       where:  f.user_id == ^user.id and
               f.number == ^number
@@ -80,7 +69,7 @@ defmodule Fizzbuzzex.Favourites do
     end
   end
 
-  def users_favourites(pagination, user) do
+  defp users_favourites(pagination, user) do
     from(f in Favourite,
     where: f.user_id == ^user.id and
            f.number >= ^pagination.first and f.number <= ^pagination.last,

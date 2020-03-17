@@ -44,7 +44,7 @@ defmodule Fizzbuzzex.MixProject do
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
       {:poison, "~> 4.0"},
-      {:ex_machina, "~> 2.3"},
+      {:ex_machina, "~> 2.4"},
       {:phoenix_live_view, "~> 0.7.1"},
       {:pow, "~> 1.0.18"}
     ]
