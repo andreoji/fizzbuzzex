@@ -3,7 +3,7 @@ defmodule Fizzbuzzex.Favourites.Fizzbuzz do
   @max 1_000_000_000_000
 
   def current_page_numbers(page, per_page) do
-    for n <- from(page, per_page)..to(page, per_page), do: %{number: n, value: fizzbuzz(n), favourite: false}
+    for n <- from(page, per_page)..to(page, per_page), do: %{number: n, value: fizzbuzz(n), state: false}
   end
 
   def from(page, per_page) when ((page * per_page) > @max) do

@@ -10,6 +10,7 @@ defmodule FizzbuzzexWeb.Router do
     plug :protect_from_forgery
     plug :put_secure_browser_headers
     plug :put_layout, {FizzbuzzexWeb.LayoutView, :app}
+    plug FizzbuzzexWeb.AssignUser
   end
 
   pipeline :protected do

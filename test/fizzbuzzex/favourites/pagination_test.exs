@@ -9,21 +9,21 @@ defmodule Fizzbuzzex.Favourites.Pagination.Test do
       refute page.has_prev
       assert page.has_next
       assert page.numbers == [
-        %{favourite: false, number: 1, value: 1},
-        %{favourite: false, number: 2, value: 2},
-        %{favourite: false, number: 3, value: "fizz"},
-        %{favourite: false, number: 4, value: 4},
-        %{favourite: false, number: 5, value: "buzz"},
-        %{favourite: false, number: 6, value: "fizz"},
-        %{favourite: false, number: 7, value: 7},
-        %{favourite: false, number: 8, value: 8},
-        %{favourite: false, number: 9, value: "fizz"},
-        %{favourite: false, number: 10, value: "buzz"},
-        %{favourite: false, number: 11, value: 11},
-        %{favourite: false, number: 12, value: "fizz"},
-        %{favourite: false, number: 13, value: 13},
-        %{favourite: false, number: 14, value: 14},
-        %{favourite: false, number: 15, value: "fizzbuzz"}
+        %{state: false, number: 1, value: 1},
+        %{state: false, number: 2, value: 2},
+        %{state: false, number: 3, value: "fizz"},
+        %{state: false, number: 4, value: 4},
+        %{state: false, number: 5, value: "buzz"},
+        %{state: false, number: 6, value: "fizz"},
+        %{state: false, number: 7, value: 7},
+        %{state: false, number: 8, value: 8},
+        %{state: false, number: 9, value: "fizz"},
+        %{state: false, number: 10, value: "buzz"},
+        %{state: false, number: 11, value: 11},
+        %{state: false, number: 12, value: "fizz"},
+        %{state: false, number: 13, value: 13},
+        %{state: false, number: 14, value: 14},
+        %{state: false, number: 15, value: "fizzbuzz"}
       ]
     end
   end
@@ -34,11 +34,11 @@ defmodule Fizzbuzzex.Favourites.Pagination.Test do
       assert page.has_prev
       assert page.has_next
       assert page.numbers == [
-        %{favourite: false, number: 6, value: "fizz"},
-        %{favourite: false, number: 7, value: 7},
-        %{favourite: false, number: 8, value: 8},
-        %{favourite: false, number: 9, value: "fizz"},
-        %{favourite: false, number: 10, value: "buzz"}
+        %{state: false, number: 6, value: "fizz"},
+        %{state: false, number: 7, value: 7},
+        %{state: false, number: 8, value: 8},
+        %{state: false, number: 9, value: "fizz"},
+        %{state: false, number: 10, value: "buzz"}
       ]
     end
   end
@@ -49,16 +49,16 @@ defmodule Fizzbuzzex.Favourites.Pagination.Test do
       assert page.has_prev
       refute page.has_next
       assert page.numbers == [
-        %{favourite: false, number: 999999999991, value: 999999999991},
-        %{favourite: false, number: 999999999992, value: 999999999992},
-        %{favourite: false, number: 999999999993, value: "fizz"},
-        %{favourite: false, number: 999999999994, value: 999999999994},
-        %{favourite: false, value: "buzz", number: 999999999995},
-        %{favourite: false, number: 999999999996, value: "fizz"},
-        %{favourite: false, number: 999999999997, value: 999999999997},
-        %{favourite: false, number: 999999999998, value: 999999999998},
-        %{favourite: false, number: 999999999999, value: "fizz"},
-        %{favourite: false, number: 1000000000000, value: "buzz"}
+        %{state: false, number: 999999999991, value: 999999999991},
+        %{state: false, number: 999999999992, value: 999999999992},
+        %{state: false, number: 999999999993, value: "fizz"},
+        %{state: false, number: 999999999994, value: 999999999994},
+        %{state: false, value: "buzz", number: 999999999995},
+        %{state: false, number: 999999999996, value: "fizz"},
+        %{state: false, number: 999999999997, value: 999999999997},
+        %{state: false, number: 999999999998, value: 999999999998},
+        %{state: false, number: 999999999999, value: "fizz"},
+        %{state: false, number: 1000000000000, value: "buzz"}
       ]
     end
   end

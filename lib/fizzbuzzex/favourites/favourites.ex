@@ -5,99 +5,87 @@ defmodule Fizzbuzzex.Favourites do
 
   import Ecto.Query, warn: false
   alias Fizzbuzzex.Repo
+  alias Fizzbuzzex.Favourites
   alias Fizzbuzzex.Favourites.{Favourite, Pagination}
 
-  @doc """
-  Returns the list of favourites.
-
-  ## Examples
-
-      iex> list_favourites()
-      [%Favourite{}, ...]
-
-  """
-  def current_page(page, per_page) do
-    Pagination.page(page, per_page)
+  def current_page(page, per_page, user) do
+    pagination = Pagination.page(page, per_page)
+    pagination
+    |> users_favourites(user)
+    |> case do
+      [] -> pagination
+      favourites ->
+        %{pagination| numbers: Enum.map(pagination.numbers, fn number ->  %{number| state: favourites |> find_numbers_state(number)} end)}
+    end
   end
 
-  @doc """
-  Gets a single favourite.
-
-  Raises `Ecto.NoResultsError` if the Favourite does not exist.
-
-  ## Examples
-
-      iex> get_favourite!(123)
-      %Favourite{}
-
-      iex> get_favourite!(456)
-      ** (Ecto.NoResultsError)
-
-  """
-  def get_favourite!(id), do: Repo.get!(Favourite, id)
-
-  @doc """
-  Creates a favourite.
-
-  ## Examples
-
-      iex> create_favourite(%{field: value})
-      {:ok, %Favourite{}}
-
-      iex> create_favourite(%{field: bad_value})
-      {:error, %Ecto.Changeset{}}
-
-  """
-  def create_favourite(attrs \\ %{}) do
-    %Favourite{}
-    |> Favourite.changeset(attrs)
-    |> Repo.insert()
+  defp find_numbers_state(favourites, n) do
+    favourite =
+      favourites
+      |>
+      Enum.find(& &1.number == n.number)
+      favourite
+    |> case do
+      nil -> false
+      %Favourite{} ->
+        favourite.state
+    end
   end
 
-  @doc """
-  Updates a favourite.
-
-  ## Examples
-
-      iex> update_favourite(favourite, %{field: new_value})
-      {:ok, %Favourite{}}
-
-      iex> update_favourite(favourite, %{field: bad_value})
-      {:error, %Ecto.Changeset{}}
-
-  """
-  def update_favourite(%Favourite{} = favourite, attrs) do
-    favourite
-    |> Favourite.changeset(attrs)
-    |> Repo.update()
+  def toggle_favourite(number, user) do
+    with favourite <- number |> Favourites.get_favourite(user),
+      {:ok, favourite} <- number |> do_toggle_favourite(user, favourite) do
+      {:ok, favourite}
+    else
+      error -> error
+    end
   end
 
-  @doc """
-  Deletes a Favourite.
-
-  ## Examples
-
-      iex> delete_favourite(favourite)
-      {:ok, %Favourite{}}
-
-      iex> delete_favourite(favourite)
-      {:error, %Ecto.Changeset{}}
-
-  """
-  def delete_favourite(%Favourite{} = favourite) do
-    Repo.delete(favourite)
+  defp do_toggle_favourite(number, user, :no_favourite) do
+    with favourite <- %Favourite{user_id: user.id} |> Favourite.changeset(%{state: true, number: number}),
+      {:ok, favourite} <- favourite |> Repo.insert do
+      {:ok, favourite}
+    else
+      error -> error
+    end
   end
 
-  @doc """
-  Returns an `%Ecto.Changeset{}` for tracking favourite changes.
+  defp do_toggle_favourite(_number, _user, %Favourite{state: true} = favourite) do
+    with favourite <- favourite |> Ecto.Changeset.change(state: false),
+      {:ok, favourite} <- favourite |> Repo.update do
+      {:ok, favourite}
+    else
+      error -> error
+    end
+  end
 
-  ## Examples
+  defp do_toggle_favourite(_number, _user, %Favourite{state: false} = favourite) do
+    with favourite <- favourite |> Ecto.Changeset.change(state: true),
+      {:ok, favourite} <- favourite |> Repo.update do
+      {:ok, favourite}
+    else
+      error -> error
+    end
+  end
 
-      iex> change_favourite(favourite)
-      %Ecto.Changeset{source: %Favourite{}}
+  def get_favourite(number, user) do
+    from(f in Favourite,
+      where:  f.user_id == ^user.id and
+              f.number == ^number
+    )
+    |> Repo.one
+    |> case do
+      nil -> :no_favourite
+      favourite -> favourite
+    end
+  end
 
-  """
-  def change_favourite(%Favourite{} = favourite) do
-    Favourite.changeset(favourite, %{})
+  def users_favourites(pagination, user) do
+    from(f in Favourite,
+    where: f.user_id == ^user.id and
+           f.number >= ^pagination.first and f.number <= ^pagination.last,
+    order_by: [asc: f.number]
+    )
+    |> Repo.all
   end
 end

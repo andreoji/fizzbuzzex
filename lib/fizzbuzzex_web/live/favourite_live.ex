@@ -3,25 +3,46 @@ defmodule FizzbuzzexWeb.FavouriteLive do
   alias FizzbuzzexWeb.FavouriteView
   alias Fizzbuzzex.Favourites
 
+  @min_per_page 15
+  @max_per_page 50
+
   def render(assigns) do
     FavouriteView.render("favourites.html", assigns)
   end
 
-  def mount(:not_mounted_at_router, %{"current_user" => _current_user, "page" => page, "per_page" => per_page}, socket) do
-    params = {page, per_page} |> parse_params
+  def mount(:not_mounted_at_router, %{"current_user" => current_user, "page" => page, "per_page" => per_page}, socket) do
+    params = %{"page" => page, "per_page" => per_page} |> parse_params
     socket =
       socket
       |> assign(params)
+      |> assign(current_user: current_user)
       |> fetch
     {:ok, socket}
   end
-  def mount(params, _session, socket) do
+
+  def mount(%{"page" => _page, "per_page" => _per_page} = params, %{"current_user" => current_user}, socket) do
     params = params |> parse_params
     socket =
       socket
       |> assign(params)
+      |> assign(current_user: current_user)
       |> fetch
     {:ok, socket}
+  end
+
+  def mount(%{} = params, %{"current_user" => current_user}, socket) do
+    params = params |> parse_params
+    socket =
+      socket
+      |> assign(params)
+      |> assign(current_user: current_user)
+      |> fetch
+    {:ok, socket}
+  end
+
+  def handle_event("toggle_favourite", %{"number" => number}, %{assigns: %{current_user: current_user}} = socket) do
+    _favourite = number |> Favourites.toggle_favourite(current_user)
+    {:noreply, fetch(socket)}
   end
 
   def handle_event("next", _, %{assigns: %{pagination: pagination}} = socket) do
@@ -40,40 +61,39 @@ defmodule FizzbuzzexWeb.FavouriteLive do
   end
 
   defp fetch(socket) do
-    %{page: page, per_page: per_page} = socket.assigns
-    pagination = Favourites.current_page(page, per_page)
+    %{page: page, per_page: per_page, current_user: current_user} = socket.assigns
+    pagination = Favourites.current_page(page, per_page, current_user)
     assign(socket, pagination: pagination)
   end
 
-  defp parse_params({page, per_page}) do
+  defp parse_params(%{"page" => page, "per_page" => per_page}) do
     page = page |> parse_page
     per_page = per_page |> parse_per_page
     %{page: page, per_page: per_page}
   end
+  defp parse_params(%{}), do: %{page: 1, per_page: @min_per_page}
 
-  defp parse_params(params) do
-    page = params |> parse_page
-    per_page = params |> parse_per_page
-    %{page: page, per_page: per_page}
-  end
-
-  defp parse_page(%{"page" => _page} = params) do
-    {page, ""} = Integer.parse(params["page"] || "1")
-    page
-  end
-  defp parse_page(%{}), do: 1
   defp parse_page(page) do
-    {page, ""} = Integer.parse(page || "1")
     page
+    |>
+    case do
+      nil -> 1
+      "" -> 1
+      _ ->  {page, ""} = page |> Integer.parse
+      page
+    end
   end
 
-  defp parse_per_page(%{"per_page" => _per_page} = params) do
-    {per_page, ""} = Integer.parse(params["per_page"] || "15")
-    per_page
-  end
-  defp parse_per_page(%{}), do: 15
   defp parse_per_page(per_page) do
-    {per_page, ""} = Integer.parse(per_page || "15")
     per_page
+    |>
+    case do
+      nil -> @min_per_page
+      "" -> @min_per_page
+      _ ->
+        {per_page, ""} = per_page |> Integer.parse
+        per_page = if (per_page <= @max_per_page), do: per_page, else: @max_per_page
+        per_page
+    end
   end
 end
