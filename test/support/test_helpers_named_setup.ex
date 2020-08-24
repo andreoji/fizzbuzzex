@@ -4,7 +4,7 @@ defmodule FizzbuzzexWeb.TestHelpers.NamedSetup do
   alias Fizzbuzzex.Favourites.Favourite
   alias Fizzbuzzex.Repo
 
-  @max 1_000_000_000_000
+  @max 100_000_000_000
 
   def create_user(context) do
     user = insert(:user)
@@ -23,7 +23,7 @@ defmodule FizzbuzzexWeb.TestHelpers.NamedSetup do
   def create_user_with_last_page_favourites(context) do
     user = insert(:user)
     favourites =
-    Enum.take_random(999_999_999_991..@max, 5)
+    Enum.take_random(99_999_999_991..@max, 5)
     |> Enum.map(fn number ->  insert(:favourite, user_id: user.id, number: number, state: true) end)
     user = user |> Repo.preload([favourites: (from f in Favourite, order_by: f.number)])
     context |> Map.merge(%{user: user, favourites: favourites})

@@ -21,8 +21,8 @@ def page(page, per_page) do
     }
   end
 
-  defp to_int(p) when is_binary(p), do: p |> String.to_integer
-  defp to_int(p), do: p
+  defp to_int(param) when is_binary(param), do: param |> String.to_integer
+  defp to_int(param), do: param
 
   defp first_number(numbers) do
     first =

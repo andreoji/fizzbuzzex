@@ -74,26 +74,22 @@ defmodule FizzbuzzexWeb.FavouriteLive do
   defp parse_params(%{}), do: %{page: 1, per_page: @min_per_page}
 
   defp parse_page(page) do
-    page
-    |>
-    case do
-      nil -> 1
-      "" -> 1
-      _ ->  {page, ""} = page |> Integer.parse
+    try do
+      page = page |> String.to_integer
+      page = if (page > 0), do: page, else: 1
       page
+    rescue
+      ArgumentError -> 1
     end
   end
 
   defp parse_per_page(per_page) do
-    per_page
-    |>
-    case do
-      nil -> @min_per_page
-      "" -> @min_per_page
-      _ ->
-        {per_page, ""} = per_page |> Integer.parse
-        per_page = if (per_page <= @max_per_page), do: per_page, else: @max_per_page
-        per_page
+    try do
+      per_page = per_page |> String.to_integer
+      per_page = if (per_page >= @min_per_page and per_page <= @max_per_page), do: per_page, else: @min_per_page
+      per_page
+    rescue
+      ArgumentError -> @min_per_page
     end
   end
 end

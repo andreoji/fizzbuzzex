@@ -1,6 +1,6 @@
 defmodule Fizzbuzzex.Favourites.Fizzbuzz do
   @min 1
-  @max 1_000_000_000_000
+  @max 100_000_000_000
 
   def current_page_numbers(page, per_page) do
     for n <- from(page, per_page)..to(page, per_page), do: %{number: n, value: fizzbuzz(n), state: false}

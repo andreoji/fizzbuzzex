@@ -43,22 +43,22 @@ defmodule Fizzbuzzex.Favourites.Pagination.Test do
     end
   end
 
-  describe "page/2 when the 1_000_000_000_000 max is reached for a page of 15" do
+  describe "page/2 when the 100_000_000_000 max is reached for a page of 15" do
     test "has the previous page only" do
       page = Pagination.page(66_666_666_667, 15)
       assert page.has_prev
       refute page.has_next
       assert page.numbers == [
-        %{state: false, number: 999999999991, value: 999999999991},
-        %{state: false, number: 999999999992, value: 999999999992},
-        %{state: false, number: 999999999993, value: "fizz"},
-        %{state: false, number: 999999999994, value: 999999999994},
-        %{state: false, value: "buzz", number: 999999999995},
-        %{state: false, number: 999999999996, value: "fizz"},
-        %{state: false, number: 999999999997, value: 999999999997},
-        %{state: false, number: 999999999998, value: 999999999998},
-        %{state: false, number: 999999999999, value: "fizz"},
-        %{state: false, number: 1000000000000, value: "buzz"}
+        %{state: false, number: 99999999991, value: 99999999991},
+        %{state: false, number: 99999999992, value: 99999999992},
+        %{state: false, number: 99999999993, value: "fizz"},
+        %{state: false, number: 99999999994, value: 99999999994},
+        %{state: false, number: 99999999995, value: "buzz"},
+        %{state: false, number: 99999999996, value: "fizz"},
+        %{state: false, number: 99999999997, value: 99999999997},
+        %{state: false, number: 99999999998, value: 99999999998},
+        %{state: false, number: 99999999999, value: "fizz"},
+        %{state: false, number: 100000000000, value: "buzz"}
       ]
     end
   end
