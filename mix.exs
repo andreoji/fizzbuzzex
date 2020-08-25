@@ -46,7 +46,9 @@ defmodule Fizzbuzzex.MixProject do
       {:poison, "~> 4.0"},
       {:ex_machina, "~> 2.4"},
       {:phoenix_live_view, "~> 0.7.1"},
-      {:pow, "~> 1.0.18"}
+      {:pow, "~> 1.0.18"},
+      {:phoenix_oauth2_provider, "~> 0.5.1"},
+      {:ex_oauth2_provider, "~> 0.5.6"}
     ]
   end
 
