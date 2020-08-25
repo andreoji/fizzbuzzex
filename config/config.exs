@@ -28,15 +28,6 @@ config :phoenix, :json_library, Jason
 
 config :phoenix, template_engines: [leex: Phoenix.LiveView.Engine]
 
-# Configures Guardian
-config :fizzbuzzex, Fizzbuzzex.Auth.Guardian,
-  issuer: "naive_dice",
-  secret_key: "HNinpKh9Ne3tr8BpjCpAEh0xzCqTIG3PWsfkR2AtzvUaRIpbs6oIQ9RcmjmGPekJ"
-
-config :fizzbuzzex, Fizzbuzzex.Auth.AuthAccessPipeline,
-  module: Fizzbuzzex.Auth.Guardian,
-  error_handler: Fizzbuzzex.Auth.AuthErrorHandler
-
 config :fizzbuzzex, :pow,
   user: Fizzbuzzex.Accounts.User,
   repo: Fizzbuzzex.Repo,
