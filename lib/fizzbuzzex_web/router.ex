@@ -24,6 +24,12 @@ defmodule FizzbuzzexWeb.Router do
     plug ExOauth2Provider.Plug.EnsureAuthenticated
   end
 
+  pipeline :json_api do
+    plug :accepts, ["json-api"]
+    plug JaSerializer.ContentTypeNegotiation
+    plug JaSerializer.Deserializer
+  end
+
   pipeline :api do
     plug :accepts, ["json"]
   end
@@ -57,14 +63,8 @@ defmodule FizzbuzzexWeb.Router do
   end
 
   scope "/api/v1", FizzbuzzexWeb.API.V1 do
-    pipe_through [:api, :api_protected]
+    pipe_through [:json_api, :api_protected]
 
-    resources "/accounts", UserController
-  end
-
-  # Other scopes may use custom stacks.
-  scope "/api", FizzbuzzexWeb.Api, as: :api do
-    pipe_through :api
     resources "/favourites", FavouriteController
   end
 end
