@@ -37,6 +37,12 @@ config :fizzbuzzex, ExOauth2Provider,
   repo: Fizzbuzzex.Repo,
   resource_owner: Fizzbuzzex.Accounts.User
 
+config :fizzbuzzex, ExOauth2Provider,
+  password_auth: {Fizzbuzzex.Accounts.Auth, :authenticate}
+
+config :phoenix_oauth2_provider, PhoenixOauth2Provider,
+  current_resource_owner: :current_user
+
 config :phoenix, :format_encoders,
   "json-api": Jason
 
