@@ -30,6 +30,7 @@ defmodule Fizzbuzzex.Favourites do
     end
   end
 
+  @spec toggle_favourite(any, atom | %{id: any}) :: any
   def toggle_favourite(number, user) do
     with favourite <- number |> get_favourite(user),
       {:ok, favourite} <- number |> do_toggle_favourite(user, favourite) do
