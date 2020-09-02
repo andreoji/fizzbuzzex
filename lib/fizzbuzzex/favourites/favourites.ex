@@ -6,27 +6,30 @@ defmodule Fizzbuzzex.Favourites do
   alias Fizzbuzzex.Repo
   alias Fizzbuzzex.Favourites.{Favourite, Pagination}
 
-  def current_page(page, per_page, user) do
-    pagination = Pagination.page(page, per_page)
+  def current_page(page_number, size, user) do
+    pagination = Pagination.page(page_number, size)
     pagination
     |> users_favourites(user)
     |> case do
       [] -> pagination
       favourites ->
-        %{pagination| numbers: Enum.map(pagination.numbers, fn number ->  %{number| state: favourites |> find_numbers_state(number)} end)}
+        %{pagination| numbers: Enum.map(pagination.numbers, fn number ->
+            state_and_id = favourites |> state_and_id(number)
+            number |> Map.merge(state_and_id)
+      end)}
     end
   end
 
-  defp find_numbers_state(favourites, n) do
+  defp state_and_id(favourites, n) do
     favourite =
       favourites
       |>
       Enum.find(& &1.number == n.number)
-      favourite
+    favourite
     |> case do
-      nil -> false
+      nil -> %{state: false, id: -1}
       %Favourite{} ->
-        favourite.state
+        %{state: favourite.state, id: favourite.id}
     end
   end
 

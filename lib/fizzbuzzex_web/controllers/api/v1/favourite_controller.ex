@@ -4,7 +4,7 @@ defmodule FizzbuzzexWeb.API.V1.FavouriteController do
   alias Fizzbuzzex.Favourites
   alias Fizzbuzzex.Favourites.Params
 
-  #action_fallback FizzbuzzexWeb.FallbackController
+  action_fallback FizzbuzzexWeb.FallbackController
 
   def index(conn, params) do
     with %{number: number, size: size} <- params |> Params.parse,

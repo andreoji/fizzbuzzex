@@ -9,8 +9,8 @@ defmodule FizzbuzzexWeb.FavouriteLive do
     FavouriteView.render("favourites.html", assigns)
   end
 
-  def mount(:not_mounted_at_router, %{"current_user" => current_user, "page" => page, "per_page" => per_page}, socket) do
-    params = %{"page" => page, "per_page" => per_page} |> Params.parse
+  def mount(:not_mounted_at_router, %{"current_user" => current_user, "number" => _number, "size" => _size} = params, socket) do
+    params = params |> Params.parse
     socket =
       socket
       |> assign(params)
@@ -19,7 +19,7 @@ defmodule FizzbuzzexWeb.FavouriteLive do
     {:ok, socket}
   end
 
-  def mount(%{"page" => _page, "per_page" => _per_page} = params, %{"current_user" => current_user}, socket) do
+  def mount(%{"page" => %{"number" => _number, "size" => _size}} = params, %{"current_user" => current_user}, socket) do
     params = params |> Params.parse
     socket =
       socket
@@ -47,21 +47,21 @@ defmodule FizzbuzzexWeb.FavouriteLive do
   def handle_event("next", _, %{assigns: %{pagination: pagination}} = socket) do
     socket =
       socket
-      |> assign(page: pagination.next_page, per_page: pagination.per_page)
+      |> assign(number: pagination.next_page, size: pagination.size)
       |> fetch
     {:noreply, socket}
   end
   def handle_event("prev", _, %{assigns: %{pagination: pagination}} = socket) do
     socket =
       socket
-      |> assign(page: pagination.prev_page, per_page: pagination.per_page)
+      |> assign(number: pagination.prev_page, size: pagination.size)
       |> fetch
     {:noreply, socket}
   end
 
   defp fetch(socket) do
-    %{page: page, per_page: per_page, current_user: current_user} = socket.assigns
-    pagination = Favourites.current_page(page, per_page, current_user)
+    %{number: number, size: size, current_user: current_user} = socket.assigns
+    pagination = Favourites.current_page(number, size, current_user)
     assign(socket, pagination: pagination)
   end
 end

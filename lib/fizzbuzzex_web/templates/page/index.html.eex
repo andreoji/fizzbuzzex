@@ -5,6 +5,6 @@
   <%= live_render(@conn,
                   FizzbuzzexWeb.FavouriteLive,
                   session: %{"current_user" => @current_user,
-                             "page" => @conn.params["page"],
-                             "per_page" => @conn.params["per_page"]}) %>
+                             "number" => @conn.params["page"]["number"],
+                             "size" => @conn.params["page"]["size"]}) %>
 <% end %>

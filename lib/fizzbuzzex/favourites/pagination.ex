@@ -1,19 +1,19 @@
 defmodule Fizzbuzzex.Favourites.Pagination do
   alias Fizzbuzzex.Favourites.Fizzbuzz
 
-def page(page, per_page) do
-    page =  to_int(page)
-    per_page = to_int(per_page)
-    numbers = Fizzbuzz.current_page_numbers(page, per_page)
+def page(page_number, size) do
+    page_number =  to_int(page_number)
+    size = to_int(size)
+    numbers = Fizzbuzz.current_page_numbers(page_number, size)
     has_next =  (numbers |> List.last).number < Fizzbuzz.max
-    has_prev = page > 1
+    has_prev = page_number > 1
     %{
-      per_page: per_page,
+      size: size,
       has_next: has_next,
       has_prev: has_prev,
-      prev_page: page - 1,
-      next_page: page + 1,
-      page: page,
+      prev_page: page_number - 1,
+      next_page: page_number + 1,
+      page_number: page_number,
       first: numbers |> first_number,
       last: numbers |> last_number,
       count: Fizzbuzz.max,

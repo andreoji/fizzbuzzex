@@ -23,7 +23,7 @@ defmodule FizzbuzzexWeb.PaginationHelpers do
   defp do_prev(socket, pagination, route) do
     content_tag :span do
       link("Previous",
-        to: route.(socket, FizzbuzzexWeb.FavouriteLive, [page: pagination.prev_page, per_page: pagination.per_page]),
+        to: route.(socket, FizzbuzzexWeb.FavouriteLive, page: [number: pagination.prev_page, size: pagination.size]),
         phx_click: :prev
       )
     end
@@ -32,7 +32,7 @@ defmodule FizzbuzzexWeb.PaginationHelpers do
   defp do_next(socket, pagination, route) do
     content_tag :span do
       link("Next",
-        to: route.(socket, FizzbuzzexWeb.FavouriteLive, [page: pagination.next_page, per_page: pagination.per_page]),
+        to: route.(socket, FizzbuzzexWeb.FavouriteLive, page: [number: pagination.next_page, size: pagination.size]),
         phx_click: "next"
       )
     end

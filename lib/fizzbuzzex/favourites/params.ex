@@ -8,12 +8,12 @@ defmodule Fizzbuzzex.Favourites.Params do
     size = size |> per_page
     %{number: number, size: size}
   end
-  def parse(%{"page" => page, "per_page" => per_page}) do
-    page = page |> page
-    per_page = per_page |> per_page
-    %{page: page, per_page: per_page}
+  def parse(%{"number" => number, "size" => size}) do
+    number = number |> page
+    size = size |> per_page
+    %{number: number, size: size}
   end
-  def parse(%{}), do: %{page: 1, per_page: @min_per_page}
+  def parse(%{}), do: %{number: 1, size: @min_per_page}
 
   defp page(page) do
     try do
