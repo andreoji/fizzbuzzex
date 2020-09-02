@@ -1,37 +1,37 @@
 defmodule Fizzbuzzex.Favourites.Params do
 
-  @min_per_page 15
-  @max_per_page 50
+  @min_size 15
+  @max_size 50
 
   def parse(%{"page" => %{"number" => number, "size" => size}}) do
-    number = number |> page
-    size = size |> per_page
+    number = number |> parse_number
+    size = size |> parse_size
     %{number: number, size: size}
   end
   def parse(%{"number" => number, "size" => size}) do
-    number = number |> page
-    size = size |> per_page
+    number = number |> parse_number
+    size = size |> parse_size
     %{number: number, size: size}
   end
-  def parse(%{}), do: %{number: 1, size: @min_per_page}
+  def parse(%{}), do: %{number: 1, size: @min_size}
 
-  defp page(page) do
+  defp parse_number(number) do
     try do
-      page = page |> String.to_integer
-      page = if (page > 0), do: page, else: 1
-      page
+      number = number |> String.to_integer
+      number = if (number > 0), do: number, else: 1
+      number
     rescue
       ArgumentError -> 1
     end
   end
 
-  defp per_page(per_page) do
+  defp parse_size(size) do
     try do
-      per_page = per_page |> String.to_integer
-      per_page = if (per_page >= @min_per_page and per_page <= @max_per_page), do: per_page, else: @min_per_page
-      per_page
+      size = size |> String.to_integer
+      size = if (size >= @min_size and size <= @max_size), do: size, else: @min_size
+      size
     rescue
-      ArgumentError -> @min_per_page
+      ArgumentError -> @min_size
     end
   end
 end

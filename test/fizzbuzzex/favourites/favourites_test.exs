@@ -23,7 +23,7 @@ defmodule Fizzbuzzex.Favourites.Test do
     test "returns the last page with the correct favourites", %{
       user: user
     } do
-      %{numbers: numbers} = Favourites.current_page(66_666_666_667, 15, user)
+      %{numbers: numbers} = Favourites.current_page(6_666_666_667, 15, user)
       page_favourites = numbers |> Enum.filter(& &1.state == true) |> Enum.map(& &1.number)
       user_favourites = user.favourites |> Enum.map(& &1.number)
       assert page_favourites == user_favourites
