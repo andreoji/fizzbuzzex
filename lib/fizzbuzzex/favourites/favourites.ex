@@ -81,4 +81,34 @@ defmodule Fizzbuzzex.Favourites do
     )
     |> Repo.all
   end
+
+  def upsert_favourite(attrs, user) do
+    with favourite <- attrs.number |> get_favourite(user),
+      {:ok, favourite} <- attrs |> do_upsert_favourite(user, favourite) do
+      {:ok, favourite}
+    else
+      error -> error
+    end
+  end
+
+  defp do_upsert_favourite(attrs, user, :no_favourite) do
+    with favourite <- %Favourite{user_id: user.id} |> Favourite.changeset(%{state: attrs.state, number: attrs.number}),
+      {:ok, favourite} <- favourite |> Repo.insert do
+      {:ok, favourite}
+    else
+      error -> error
+    end
+  end
+
+  defp do_upsert_favourite(attrs, _user, %Favourite{} = favourite) do
+    with favourite <- favourite |> Ecto.Changeset.change(state: attrs.state |> to_bool),
+      {:ok, favourite} <- favourite |> Repo.update do
+      {:ok, favourite}
+    else
+      error -> error
+    end
+  end
+
+  defp to_bool("true"), do: true
+  defp to_bool("false"), do: false
 end
