@@ -33,18 +33,17 @@ defmodule Fizzbuzzex.Favourites do
     end
   end
 
-  @spec toggle_favourite(any, atom | %{id: any}) :: any
-  def toggle_favourite(number, user) do
+  def toggle_favourite(number, fizzbuzz, user) do
     with favourite <- number |> get_favourite(user),
-      {:ok, favourite} <- number |> do_toggle_favourite(user, favourite) do
+      {:ok, favourite} <- number |> do_toggle_favourite(fizzbuzz, user, favourite) do
       {:ok, favourite}
     else
       error -> error
     end
   end
 
-  defp do_toggle_favourite(number, user, :no_favourite) do
-    with favourite <- %Favourite{user_id: user.id} |> Favourite.changeset(%{state: true, number: number}),
+  defp do_toggle_favourite(number, fizzbuzz, user, :no_favourite) do
+    with favourite <- %Favourite{user_id: user.id} |> Favourite.changeset(%{state: true, number: number, fizzbuzz: fizzbuzz}),
       {:ok, favourite} <- favourite |> Repo.insert do
       {:ok, favourite}
     else
@@ -52,7 +51,7 @@ defmodule Fizzbuzzex.Favourites do
     end
   end
 
-  defp do_toggle_favourite(_number, _user, %Favourite{state: state} = favourite) do
+  defp do_toggle_favourite(_number, _fizzbuzz, _user, %Favourite{state: state} = favourite) do
     with favourite <- favourite |> Ecto.Changeset.change(state: !state),
       {:ok, favourite} <- favourite |> Repo.update do
       {:ok, favourite}
@@ -92,7 +91,7 @@ defmodule Fizzbuzzex.Favourites do
   end
 
   defp do_upsert_favourite(attrs, user, :no_favourite) do
-    with favourite <- %Favourite{user_id: user.id} |> Favourite.changeset(%{state: attrs.state, number: attrs.number}),
+    with favourite <- %Favourite{user_id: user.id} |> Favourite.changeset(%{state: attrs.state, number: attrs.number, fizzbuzz: attrs.fizzbuzz}),
       {:ok, favourite} <- favourite |> Repo.insert do
       {:ok, favourite}
     else

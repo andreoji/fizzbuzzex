@@ -2,6 +2,7 @@ defmodule FizzbuzzexWeb.API.V1.FavouriteController do
   use FizzbuzzexWeb, :controller
 
   alias Fizzbuzzex.Favourites
+  alias Fizzbuzzex.Favourites.Params
 
   action_fallback FizzbuzzexWeb.FallbackController
 

@@ -39,8 +39,8 @@ defmodule FizzbuzzexWeb.FavouriteLive do
     {:ok, socket}
   end
 
-  def handle_event("toggle_favourite", %{"number" => number}, %{assigns: %{current_user: current_user}} = socket) do
-    _favourite = number |> Favourites.toggle_favourite(current_user)
+  def handle_event("toggle_favourite", %{"number" => number, "fizzbuzz" => fizzbuzz}, %{assigns: %{current_user: current_user}} = socket) do
+    _favourite = number |> Favourites.toggle_favourite(fizzbuzz, current_user)
     {:noreply, fetch(socket)}
   end
 
