@@ -29,5 +29,17 @@ defmodule Fizzbuzzex.Favourites.Fizzbuzz do
     end
   end
 
+  def validate_attributes(attrs) do
+    fizzbuzz =
+      attrs.number
+      |> String.to_integer
+      |> fizzbuzz
+    cond do
+      fizzbuzz == attrs.fizzbuzz  ->
+        {:ok, "Fizzbuzz value match"}
+      true -> {:error, %{error: "Fizzbuzz value is incorrect"}}
+    end
+  end
+
   def max, do: @max
 end
