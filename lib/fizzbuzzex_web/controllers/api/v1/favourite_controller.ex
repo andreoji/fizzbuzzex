@@ -13,18 +13,20 @@ defmodule FizzbuzzexWeb.API.V1.FavouriteController do
     |> render("index.json-api", data: numbers, opts: opts)
   end
 
-  def create(conn, %{"data" => data}) do
-    PostWorkflow.run(conn, data)
+  @spec create(Plug.Conn.t(), map) :: Plug.Conn.t()
+  def create(conn, params) do
+    PostWorkflow.run(conn, params)
     |>
     case do
       {:ok, favourite} ->
         conn
         |> put_status(201)
+        |> Plug.Conn.put_resp_header("location", Routes.favourite_path(conn, :show, favourite))
         |> render("show.json-api", data: favourite)
-      {:error, error} ->
+      {:error, %Ecto.Changeset{} = changeset} ->
         conn
         |> put_status(422)
-        |> render(:errors, data: error)
+        |> render(:errors, data: changeset)
     end
   end
 end

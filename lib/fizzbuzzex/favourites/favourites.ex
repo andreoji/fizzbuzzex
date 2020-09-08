@@ -100,14 +100,11 @@ defmodule Fizzbuzzex.Favourites do
   end
 
   defp do_upsert_favourite(attrs, _user, %Favourite{} = favourite) do
-    with favourite <- favourite |> Ecto.Changeset.change(state: attrs.state |> to_bool),
+    with favourite <- favourite |> Favourite.changeset(%{state: attrs.state, number: attrs.number, fizzbuzz: attrs.fizzbuzz}),
       {:ok, favourite} <- favourite |> Repo.update do
       {:ok, favourite}
     else
       error -> error
     end
   end
-
-  defp to_bool("true"), do: true
-  defp to_bool("false"), do: false
 end

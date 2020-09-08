@@ -49,7 +49,8 @@ defmodule Fizzbuzzex.MixProject do
       {:pow, "~> 1.0.18"},
       {:phoenix_oauth2_provider, "~> 0.5.1"},
       {:ex_oauth2_provider, "~> 0.5.6"},
-      {:ja_serializer, "~> 0.16.0"}
+      {:ja_serializer, "~> 0.16.0"},
+      {:ex_json_schema, "~> 0.7.4"}
     ]
   end
 

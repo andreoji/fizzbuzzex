@@ -32,7 +32,6 @@ defmodule Fizzbuzzex.Favourites.Fizzbuzz do
   def validate_attributes(attrs) do
     fizzbuzz =
       attrs.number
-      |> String.to_integer
       |> fizzbuzz
     cond do
       fizzbuzz == attrs.fizzbuzz  ->
@@ -42,4 +41,5 @@ defmodule Fizzbuzzex.Favourites.Fizzbuzz do
   end
 
   def max, do: @max
+  def min, do: @min
 end
