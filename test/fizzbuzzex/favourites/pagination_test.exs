@@ -45,7 +45,7 @@ defmodule Fizzbuzzex.Favourites.Pagination.Test do
 
   describe "page/2 when the 100_000_000_000 max is reached for a page of 15" do
     test "has the previous page only" do
-      page = Pagination.page(6_666_666_666, 15)
+      page = Pagination.page(6_666_666_667, 15)
       assert page.has_prev
       refute page.has_next
       assert page.numbers == [
