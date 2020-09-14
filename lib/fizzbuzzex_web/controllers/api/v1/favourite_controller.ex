@@ -23,10 +23,8 @@ defmodule FizzbuzzexWeb.API.V1.FavouriteController do
         |> put_status(201)
         |> Plug.Conn.put_resp_header("location", Routes.favourite_path(conn, :show, favourite))
         |> render("show.json-api", data: favourite)
-      {:error, %Ecto.Changeset{} = changeset} ->
-        conn
-        |> put_status(422)
-        |> render(:errors, data: changeset)
+      {:error, changeset} ->
+        {:error, changeset}
     end
   end
 end

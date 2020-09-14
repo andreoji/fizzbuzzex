@@ -1,43 +1,45 @@
 defmodule Fizzbuzzex.Validators.JsonSchema do
-  alias Fizzbuzzex.Favourites.Favourite
-  import Ecto.Changeset
 
+
+  def validate(json) when json == %{}, do: {:error, [{"Payload is required to have a data object.", {"#/data", :missing_data_object}}]}
   def validate(json) do
-    resolve_schema()
-    |> ExJsonSchema.Validator.validate(json)
-    |> case do
-      :ok -> :ok
+    with :ok <- resolve_schema() |> ExJsonSchema.Validator.validate(json),
+      :ok <- json |> validate_type do
+      :ok
+    else
       {:error, errors} ->
-        {:error, errors |> build_changeset}
+        json
+        |> validate_type
+        |> case do
+          :ok -> {:error, errors}
+          :missing_type_property ->
+            {:error, errors}
+          {:invalid_type, error} ->
+            {:error, [error| errors]}
+
+        end
+      {:invalid_type, error} ->
+        {:error, [error]}
+      :missing_type_property ->
+        {:error, []}
     end
   end
 
-  defp build_changeset(errors) do
-    acc = change(%Favourite{})
-    errors
-    |> Enum.reduce(acc, fn t, acc -> t |> match_error(acc) end)
+  defp validate_type(%{"data" => data} = _params) do
+    attrs =
+      data
+      |> to_attrs()
+      cond do
+        attrs.type == "favourite" -> :ok
+        attrs.type == nil -> :missing_type_property
+        true ->
+          {:invalid_type, {~s(Property type must have the value "favourite".), {"#/data/type", :invalid_type}}}
+      end
   end
 
-  defp match_error({message, path}, acc) do
-    cond do
-      path |> String.ends_with?("number") ->
-        _acc = acc |> add_error(:number, message)
-      path |> String.ends_with?("fizzbuzz") ->
-        _acc = acc |> add_error(:fizzbuzz, message)
-      path |> String.ends_with?("state") ->
-        _acc = acc |> add_error(:state, message)
-      path |> String.ends_with?("type") ->
-        _acc = acc |> add_error(:type, message)
-      message |> String.match?(~r/number/) ->
-        _acc = acc |> add_error(:attributes, message)
-      message |> String.match?(~r/fizzbuzz/) ->
-        _acc = acc |> add_error(:attributes, message)
-      message |> String.match?(~r/state/) ->
-        _acc = acc |> add_error(:attributes, message)
-      message |> String.match?(~r/type/) ->
-        _acc = acc |> add_error(:attributes, message)
-      true -> acc
-    end
+  defp to_attrs(data) do
+    attrs = JaSerializer.Params.to_attributes(data)
+    for {key, val} <- attrs, into: %{}, do: {String.to_atom(key), val}
   end
 
   defp resolve_schema() do

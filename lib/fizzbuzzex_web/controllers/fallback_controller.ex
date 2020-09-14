@@ -12,4 +12,12 @@ defmodule FizzbuzzexWeb.FallbackController do
     |> put_view(FizzbuzzexWeb.ErrorView)
     |> render(:"404")
   end
+
+  def call(conn, {:error, errors}) do
+    conn
+    |> assign(:errors, errors)
+    |> put_status(422)
+    |> put_view(FizzbuzzexWeb.ErrorView)
+    |> render("error.json")
+  end
 end
