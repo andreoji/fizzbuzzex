@@ -37,7 +37,7 @@ defmodule Fizzbuzzex.Favourites.Test do
       user: user,
       favourite: favourite
     } do
-      assert {:ok, %Favourite{state: false}} = Favourites.toggle_favourite(favourite.number, user)
+      assert {:ok, %Favourite{state: false}} = Favourites.toggle_favourite(favourite.number, favourite.fizzbuzz, user)
     end
   end
 
@@ -48,7 +48,7 @@ defmodule Fizzbuzzex.Favourites.Test do
       user: user,
       favourite: favourite
     } do
-      assert {:ok, %Favourite{state: true}} = Favourites.toggle_favourite(favourite.number, user)
+      assert {:ok, %Favourite{state: true}} = Favourites.toggle_favourite(favourite.number, favourite.fizzbuzz, user)
     end
   end
 
@@ -59,7 +59,9 @@ defmodule Fizzbuzzex.Favourites.Test do
       user: user
     } do
       number = 10
-      assert {:ok, %Favourite{state: true, number: number}} = Favourites.toggle_favourite(number, user)
+      fizzbuzz = "buzz"
+      assert {:ok, %Favourite{state: true, number: number, fizzbuzz: fizzbuzz}} =
+         Favourites.toggle_favourite(number, fizzbuzz, user)
     end
   end
 end
