@@ -1,4 +1,5 @@
 defmodule Fizzbuzzex.Validators.JsonSchema do
+  alias Fizzbuzzex.Utilities.Serializer
 
 
   def validate(json) when json == %{}, do: {:error, [{"Payload is required to have a data object.", {"#/data", :missing_data_object}}]}
@@ -28,18 +29,13 @@ defmodule Fizzbuzzex.Validators.JsonSchema do
   defp validate_type(%{"data" => data} = _params) do
     attrs =
       data
-      |> to_attrs()
+      |> Serializer.to_attrs()
       cond do
         attrs.type == "favourite" -> :ok
         attrs.type == nil -> :missing_type_property
         true ->
           {:invalid_type, {~s(Property type must have the value "favourite".), {"#/data/type", :invalid_type}}}
       end
-  end
-
-  defp to_attrs(data) do
-    attrs = JaSerializer.Params.to_attributes(data)
-    for {key, val} <- attrs, into: %{}, do: {String.to_atom(key), val}
   end
 
   defp resolve_schema() do

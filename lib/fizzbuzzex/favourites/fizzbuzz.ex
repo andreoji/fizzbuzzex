@@ -25,7 +25,7 @@ defmodule Fizzbuzzex.Favourites.Fizzbuzz do
       rem(n, 15) == 0 -> "fizzbuzz"
       rem(n, 3) == 0 -> "fizz"
       rem(n, 5) == 0 -> "buzz"
-      true -> n
+      true -> n |> Integer.to_string()
     end
   end
 
