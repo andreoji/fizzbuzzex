@@ -10,8 +10,8 @@
 <%= for n <- @pagination.numbers do %>
     <tr>
       <td>
-        <span><%= checkbox(:favourite, :number, phx_click: "toggle_favourite", phx_value_number: n.number, phx_value_fizzbuzz: n.value, value: n.state) %></span>
-        <span><%= n.number %> **** <%= n.value %></span>
+        <span><%= checkbox(:favourite, :number, phx_click: "toggle_favourite", phx_value_number: n.number, phx_value_fizzbuzz: n.fizzbuzz, value: n.state) %></span>
+        <span><%= n.number %> **** <%= n.fizzbuzz %></span>
       </td>
     </tr>
 <% end %>

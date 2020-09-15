@@ -3,7 +3,7 @@ defmodule Fizzbuzzex.Favourites.Fizzbuzz do
   @max 100_000_000_000
 
   def current_page_numbers(page, per_page) do
-    for n <- from(page, per_page)..to(page, per_page), do: %{number: n, value: fizzbuzz(n), state: false}
+    for n <- from(page, per_page)..to(page, per_page), do: %{number: n, fizzbuzz: fizzbuzz(n), state: false}
   end
 
   def from(page, per_page) when ((page * per_page) > @max) do
@@ -28,18 +28,6 @@ defmodule Fizzbuzzex.Favourites.Fizzbuzz do
       true -> n |> Integer.to_string()
     end
   end
-
-  def validate_attributes(attrs) do
-    fizzbuzz =
-      attrs.number
-      |> fizzbuzz
-    cond do
-      fizzbuzz == attrs.fizzbuzz  ->
-        {:ok, "Fizzbuzz value match"}
-      true -> {:error, %{error: "Fizzbuzz value is incorrect"}}
-    end
-  end
-
   def max, do: @max
   def min, do: @min
 end

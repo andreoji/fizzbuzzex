@@ -3,10 +3,7 @@ defmodule FizzbuzzexWeb.TestHelpers.NamedSetup do
   import FizzbuzzexWeb.Factory
   alias Fizzbuzzex.Favourites.Favourite
   alias Fizzbuzzex.Favourites.Fizzbuzz
-  alias Fizzbuzzex.Utilities.Integer
   alias Fizzbuzzex.Repo
-
-  @max 100_000_000_000
 
   def create_user(context) do
     user = insert(:user)
@@ -25,7 +22,7 @@ defmodule FizzbuzzexWeb.TestHelpers.NamedSetup do
   def create_user_with_last_page_favourites(context) do
     user = insert(:user)
     favourites =
-    Enum.take_random(99_999_999_991..@max, 5)
+    Enum.take_random(99_999_999_991..Fizzbuzz.max, 5)
     |> Enum.map(fn number ->  insert(:favourite, user_id: user.id, number: number, fizzbuzz: number |> Fizzbuzz.fizzbuzz, state: true) end)
     user = user |> Repo.preload([favourites: (from f in Favourite, order_by: f.number)])
     context |> Map.merge(%{user: user, favourites: favourites})
@@ -33,14 +30,14 @@ defmodule FizzbuzzexWeb.TestHelpers.NamedSetup do
 
   def create_user_with_a_favourite_with_true_status(context) do
     user = insert(:user)
-    number = Enum.random(1..@max)
+    number = Enum.random(1..Fizzbuzz.max)
     favourite = insert(:favourite, user_id: user.id, number: number, fizzbuzz: number |> Fizzbuzz.fizzbuzz, state: true)
     context |> Map.merge(%{user: user, favourite: favourite})
   end
 
   def create_user_with_a_favourite_with_false_status(context) do
     user = insert(:user)
-    number = Enum.random(1..@max)
+    number = Enum.random(1..Fizzbuzz.max)
     favourite = insert(:favourite, user_id: user.id, number: number, fizzbuzz: number |> Fizzbuzz.fizzbuzz, state: false)
     context |> Map.merge(%{user: user, favourite: favourite})
   end
