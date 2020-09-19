@@ -39,7 +39,7 @@ defmodule Fizzbuzzex.Favourites do
       Enum.find(& &1.number == n.number)
     favourite
     |> case do
-      nil -> %{state: false, id: -1}
+      nil -> %{state: false, id: ""}
       %Favourite{} ->
         %{state: favourite.state, id: favourite.id}
     end

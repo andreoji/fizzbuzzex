@@ -12,7 +12,9 @@ config :fizzbuzzex, Fizzbuzzex.Repo,
 # you can enable the server option below.
 config :fizzbuzzex, FizzbuzzexWeb.Endpoint,
   http: [port: 4002],
-  server: false
+  server: true
+
+config :fizzbuzzex, :sql_sandbox, true
 
 # Print only warnings and errors during test
 config :logger, level: :warn

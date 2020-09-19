@@ -50,7 +50,9 @@ defmodule Fizzbuzzex.MixProject do
       {:phoenix_oauth2_provider, "~> 0.5.1"},
       {:ex_oauth2_provider, "~> 0.5.6"},
       {:ja_serializer, "~> 0.16.0"},
-      {:ex_json_schema, "~> 0.7.4"}
+      {:ex_json_schema, "~> 0.7.4"},
+      {:wallaby, "~> 0.26.2"},
+      {:httpoison, "~> 1.7"}
     ]
   end
 

@@ -65,6 +65,6 @@ defmodule FizzbuzzexWeb.Router do
   scope "/api/v1", FizzbuzzexWeb.API.V1 do
     pipe_through [:json_api, :api_protected]
 
-    resources "/favourites", FavouriteController
+    resources "/favourites", FavouriteController, only: [:index, :create, :show]
   end
 end

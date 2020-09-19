@@ -16,7 +16,7 @@ def page(page_number, size) do
       page_number: page_number,
       first: numbers |> first_number,
       last: numbers |> last_number,
-      count: Fizzbuzz.max,
+      count: size |> count,
       numbers: numbers
     }
   end
@@ -37,4 +37,6 @@ def page(page_number, size) do
       |> List.last
     last.number
   end
+
+  defp count(size), do: (Fizzbuzz.max / size) |> Float.ceil |> trunc
 end

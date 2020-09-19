@@ -1,11 +1,16 @@
 defmodule FizzbuzzexWeb.Endpoint do
+
+  use Phoenix.Endpoint, otp_app: :fizzbuzzex
+
+  if Application.get_env(:fizzbuzzex, :sql_sandbox) do
+    plug Phoenix.Ecto.SQL.Sandbox
+  end
+
   @session_options [
     store: :cookie,
     key: "_fizzbuzzex_key",
     signing_salt: "CrzMo2Ix"
   ]
-
-  use Phoenix.Endpoint, otp_app: :fizzbuzzex
 
   socket "/live", Phoenix.LiveView.Socket,
     websocket: [connect_info: [session: @session_options]]

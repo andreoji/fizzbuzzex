@@ -23,17 +23,17 @@ defmodule FizzbuzzexWeb.Api.FavouriteControllerTest do
 
   describe "index" do
     test "lists all favourites", %{conn: conn} do
-      conn = get(conn, Routes.api_favourite_path(conn, :index))
+      conn = get(conn, Routes.favourite_path(conn, :index))
       assert json_response(conn, 200)["data"] == []
     end
   end
 
   describe "create favourite" do
     test "renders favourite when data is valid", %{conn: conn} do
-      conn = post(conn, Routes.api_favourite_path(conn, :create), favourite: @create_attrs)
+      conn = post(conn, Routes.favourite_path(conn, :create), favourite: @create_attrs)
       assert %{"id" => id} = json_response(conn, 201)["data"]
 
-      conn = get(conn, Routes.api_favourite_path(conn, :show, id))
+      conn = get(conn, Routes.favourite_path(conn, :show, id))
 
       assert %{
                "id" => id,
@@ -42,7 +42,7 @@ defmodule FizzbuzzexWeb.Api.FavouriteControllerTest do
     end
 
     test "renders errors when data is invalid", %{conn: conn} do
-      conn = post(conn, Routes.api_favourite_path(conn, :create), favourite: @invalid_attrs)
+      conn = post(conn, Routes.favourite_path(conn, :create), favourite: @invalid_attrs)
       assert json_response(conn, 422)["errors"] != %{}
     end
   end
@@ -51,10 +51,10 @@ defmodule FizzbuzzexWeb.Api.FavouriteControllerTest do
     setup [:create_favourite]
 
     test "renders favourite when data is valid", %{conn: conn, favourite: %Favourite{id: id} = favourite} do
-      conn = put(conn, Routes.api_favourite_path(conn, :update, favourite), favourite: @update_attrs)
+      conn = put(conn, Routes.favourite_path(conn, :update, favourite), favourite: @update_attrs)
       assert %{"id" => ^id} = json_response(conn, 200)["data"]
 
-      conn = get(conn, Routes.api_favourite_path(conn, :show, id))
+      conn = get(conn, Routes.favourite_path(conn, :show, id))
 
       assert %{
                "id" => id,
@@ -63,7 +63,7 @@ defmodule FizzbuzzexWeb.Api.FavouriteControllerTest do
     end
 
     test "renders errors when data is invalid", %{conn: conn, favourite: favourite} do
-      conn = put(conn, Routes.api_favourite_path(conn, :update, favourite), favourite: @invalid_attrs)
+      conn = put(conn, Routes.favourite_path(conn, :update, favourite), favourite: @invalid_attrs)
       assert json_response(conn, 422)["errors"] != %{}
     end
   end
@@ -72,11 +72,11 @@ defmodule FizzbuzzexWeb.Api.FavouriteControllerTest do
     setup [:create_favourite]
 
     test "deletes chosen favourite", %{conn: conn, favourite: favourite} do
-      conn = delete(conn, Routes.api_favourite_path(conn, :delete, favourite))
+      conn = delete(conn, Routes.favourite_path(conn, :delete, favourite))
       assert response(conn, 204)
 
       assert_error_sent 404, fn ->
-        get(conn, Routes.api_favourite_path(conn, :show, favourite))
+        get(conn, Routes.favourite_path(conn, :show, favourite))
       end
     end
   end
