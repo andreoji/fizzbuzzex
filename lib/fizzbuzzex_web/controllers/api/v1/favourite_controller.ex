@@ -13,7 +13,6 @@ defmodule FizzbuzzexWeb.API.V1.FavouriteController do
     |> render("index.json-api", data: numbers, opts: opts)
   end
 
-  @spec create(Plug.Conn.t(), map) :: Plug.Conn.t()
   def create(conn, params) do
     PostWorkflow.run(conn, params)
     |>

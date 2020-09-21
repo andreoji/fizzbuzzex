@@ -1,13 +1,4 @@
 defmodule FizzbuzzexWeb.TestHelpers.ApiClient do
-  def status_code(response = %{}), do: response |> Map.take([:status_code])
-  def request(verb, url, headers, token), do: HTTPoison.request!(verb, url, "", [bearer_auth_header(token)| headers])
-  def body(%{body: body}), do: body
-  def json_body(%{body: body}), do: body |> Poison.decode!
-  def json_accept_header(), do: {"accept", "application/vnd.api+json"}
-  def json_content_type(), do: {"Content-Type", "application/vnd.api+json"}
-  def bearer_auth_header(token), do: {"authorization", "Bearer #{token}"}
-  def location(%{headers: headers}) do
-    {"location", location_header} = Enum.find(headers, fn (x) -> match?({"location", _}, x) end)
-    location_header
-  end
+  import FizzbuzzexWeb.TestHelpers.HttpHelper
+  def request(verb, url, payload, headers, token), do: HTTPoison.request!(verb, url, payload, [bearer_auth_header(token)| headers])
 end

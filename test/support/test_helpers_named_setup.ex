@@ -5,18 +5,6 @@ defmodule FizzbuzzexWeb.TestHelpers.NamedSetup do
   alias Fizzbuzzex.Favourites.Fizzbuzz
   alias Fizzbuzzex.Repo
 
-  @spec log_user_in(%{
-          :conn => any,
-          :post_session_fun => (any, any -> any),
-          :session => any,
-          optional(:user) => atom | %{name: any}
-        }) :: %{
-          conn: any,
-          params: %{optional(<<_::32>>) => any},
-          post_session_fun: (any, any -> any),
-          session: any,
-          user: atom | %{name: any}
-        }
   def log_user_in(context), do: do_log_user_in(context)
 
   def do_log_user_in(%{session: _session, user: user} = context) do

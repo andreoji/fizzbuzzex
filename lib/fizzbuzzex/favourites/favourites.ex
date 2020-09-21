@@ -6,18 +6,6 @@ defmodule Fizzbuzzex.Favourites do
   alias Fizzbuzzex.Repo
   alias Fizzbuzzex.Favourites.{Favourite, Pagination}
 
-  @spec current_page(any, any, atom | %{id: any}) :: %{
-          count: 100_000_000_000,
-          first: any,
-          has_next: boolean,
-          has_prev: boolean,
-          last: any,
-          next_page: number,
-          numbers: [any],
-          page_number: number,
-          prev_page: number,
-          size: number
-        }
   def current_page(page_number, size, user) do
     pagination = Pagination.page(page_number, size)
     pagination

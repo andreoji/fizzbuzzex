@@ -12,7 +12,7 @@ defmodule FizzbuzzexWeb.FeatureCase do
       import Ecto.Query
       import Wallaby.Query
       import FizzbuzzexWeb.TestHelpers.{Factory, NamedSetup}
-      alias FizzbuzzexWeb.TestHelpers.ApiClient
+      import FizzbuzzexWeb.TestHelpers.HttpHelper
     end
   end
 
