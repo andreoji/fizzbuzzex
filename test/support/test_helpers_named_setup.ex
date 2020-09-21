@@ -1,6 +1,6 @@
 defmodule FizzbuzzexWeb.TestHelpers.NamedSetup do
   import Ecto.Query, warn: false
-  import FizzbuzzexWeb.Factory
+  import FizzbuzzexWeb.TestHelpers.Factory
   alias Fizzbuzzex.Favourites.Favourite
   alias Fizzbuzzex.Favourites.Fizzbuzz
   alias Fizzbuzzex.Repo

@@ -6,7 +6,6 @@ defmodule FizzbuzzexWeb.FeatureCase do
   using do
     quote do
       use Wallaby.DSL
-      import Phoenix.ConnTest
       import Ecto
       import Ecto.Changeset
       import Ecto.Query
