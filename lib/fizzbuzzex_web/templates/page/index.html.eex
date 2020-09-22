@@ -1,6 +1,3 @@
-<div>
-  <h2>Fizzbuzz!</h2>
-</div>
 <%= if @current_user do %>
   <%= live_render(@conn,
                   FizzbuzzexWeb.FavouriteLive,
