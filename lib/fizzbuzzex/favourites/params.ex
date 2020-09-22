@@ -1,7 +1,7 @@
 defmodule Fizzbuzzex.Favourites.Params do
 
   @min_size 15
-  @max_size 50
+  @max_size 100
 
   def parse(%{"page" => %{"number" => number, "size" => size}}) do
     number = number |> parse_number
@@ -13,7 +13,7 @@ defmodule Fizzbuzzex.Favourites.Params do
     size = size |> parse_size
     %{number: number, size: size}
   end
-  def parse(%{}), do: %{number: 1, size: @min_size}
+  def parse(%{}), do: %{number: 1, size: @max_size}
 
   defp parse_number(number) do
     try do
@@ -28,10 +28,10 @@ defmodule Fizzbuzzex.Favourites.Params do
   defp parse_size(size) do
     try do
       size = size |> String.to_integer
-      size = if (size >= @min_size and size <= @max_size), do: size, else: @min_size
+      size = if (size >= @min_size and size <= @max_size), do: size, else: @max_size
       size
     rescue
-      ArgumentError -> @min_size
+      ArgumentError -> @max_size
     end
   end
 end

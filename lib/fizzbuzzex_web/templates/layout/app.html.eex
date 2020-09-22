@@ -20,6 +20,9 @@
           <span class="logo"></span>
           <ol class="breadcrumb text-right">
             <%= if Pow.Plug.current_user(@conn) do %>
+               <li>
+                <div>Hello <%= Pow.Plug.current_user(@conn).name %>
+              </li>
               <li>
                 <%= link "Sign out", to: Routes.pow_session_path(@conn, :delete), method: :delete %>
               </li>

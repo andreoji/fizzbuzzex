@@ -5,7 +5,7 @@ defmodule FizzbuzzexWeb.PaginationHelpers do
 
   def pagination_text(pagination) do
     ~e"""
-    Displaying <%= pagination.first %>-<%= pagination.last %> of <%= pagination.count %>
+    Displaying page <%= pagination.page_number %> numbers (<%= pagination.first %>-<%= pagination.last %>) of <%= pagination.count %> pages
     """
   end
 
