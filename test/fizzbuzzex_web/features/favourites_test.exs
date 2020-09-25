@@ -452,7 +452,7 @@ defmodule FizzbuzzexWeb.Features.FavouritesTest do
       response = ApiClient.request(:post,"#{base_url()}/api/v1/favourites", payload,
       [{"accept", "application/vnd.api+json"}, {"content-type", "application/vnd.api+json"}], access_token)
 
-      assert "Bad Request" = response |> json_body()
+      assert %{"message" => "Malformed JSON in the body"} = response |> json_body()
 
       assert %{status_code: 400} = response |> status_code()
     end

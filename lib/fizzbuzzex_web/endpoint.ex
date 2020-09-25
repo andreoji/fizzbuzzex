@@ -41,8 +41,16 @@ defmodule FizzbuzzexWeb.Endpoint do
   plug Plug.Telemetry, event_prefix: [:phoenix, :endpoint]
 
   plug Plug.Parsers,
-    parsers: [:urlencoded, :multipart, :json],
-    pass: ["*/*"],
+    parsers: [:urlencoded],
+    pass: ["application/x-www-form-urlencoded", "application/vnd.api+json"],
+    json_decoder: Phoenix.json_library()
+
+  plug FizzbuzzexWeb.PrepareParse
+
+  plug Plug.Parsers,
+    parsers: [:json],
+    pass: ["application/vnd.api+json"],
+    body_reader: {CustomBodyReader, :read_body, []},
     json_decoder: Phoenix.json_library()
 
   plug Plug.MethodOverride
