@@ -8,11 +8,7 @@ defmodule Fizzbuzzex.Accounts.Auth do
     |> verify_password(password)
   end
 
-  defp verify_password(nil, password) do
-    Password.pbkdf2_verify(password, "") # Prevent timing attack
-
-    {:error, :no_user_found}
-  end
+  defp verify_password(nil, _password), do: {:error, :no_user_found}
   defp verify_password(%{password_hash: password_hash} = user, password) do
     case Password.pbkdf2_verify(password, password_hash) do
       true  -> {:ok, user}
