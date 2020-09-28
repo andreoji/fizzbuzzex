@@ -3,7 +3,7 @@ defmodule FizzbuzzexWeb.Features.FavouritesTest do
   use Wallaby.Feature
   alias FizzbuzzexWeb.TestHelpers.ApiClient
 
-  setup [:log_user_in, :oauth2_token]
+  setup [:log_admin_in, :new_oauth2_app, :log_user_in, :oauth2_token]
 
   test "when an api client requests the first page of favourites", %{access_token: access_token} do
     response = ApiClient.request(:get,
@@ -458,7 +458,7 @@ defmodule FizzbuzzexWeb.Features.FavouritesTest do
     end
   end
 
-  def oauth2_token(%{session: session, user: user} = context) do
+  def new_oauth2_app(%{session: session, admin: admin} = context) do
     email_field = fillable_field("user[email]")
     password_field = fillable_field("user[password]")
     oauth_application_name_field = fillable_field("oauth_application_name")
@@ -469,8 +469,8 @@ defmodule FizzbuzzexWeb.Features.FavouritesTest do
     |> visit("/session/new")
     |> assert_has(css("h1", text: "Sign in"))
     |> assert_has(email_field)
-    |> fill_in(email_field, with: user.email)
-    |> fill_in(password_field, with: user.password)
+    |> fill_in(email_field, with: admin.email)
+    |> fill_in(password_field, with: admin.password)
     |> click(button("Sign in"))
     |> visit("/oauth/applications")
     |> assert_has(css("h1", text: "Your applications"))
@@ -482,10 +482,16 @@ defmodule FizzbuzzexWeb.Features.FavouritesTest do
     |> assert_has(css("h1", text: "Show Application"))
     |> Wallaby.Browser.text()
 
-    access_token =
+    %{"id" => id, "secret" => secret} =
     show_application_page_text
     |> client_id_and_secret
-    |> password_strategy_attrs(user)
+    context |> Map.merge(%{client_id: id, client_secret: secret})
+  end
+
+  def oauth2_token(%{user: user, client_id: client_id, client_secret: client_secret} = context) do
+    access_token =
+    user
+    |> password_strategy_attrs(client_id, client_secret)
     |> access_token
 
     context |> Map.merge(%{access_token: access_token})

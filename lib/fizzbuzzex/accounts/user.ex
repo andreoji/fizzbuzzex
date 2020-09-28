@@ -8,6 +8,7 @@ defmodule Fizzbuzzex.Accounts.User do
   @moduledoc false
 
   schema "users" do
+    field :role, :string, null: false, default: "user"
     pow_user_fields()
     field(:name, :string)
     field(:username, :string)
@@ -25,5 +26,11 @@ defmodule Fizzbuzzex.Accounts.User do
     |> validate_format(:email, ~r/@/)
     |> unique_constraint(:username)
     |> unique_constraint(:name)
+  end
+
+  def changeset_role(user_or_changeset, attrs) do
+    user_or_changeset
+    |> cast(attrs, [:role])
+    |> validate_inclusion(:role, ~w(user admin))
   end
 end

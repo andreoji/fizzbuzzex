@@ -21,6 +21,22 @@ defmodule FizzbuzzexWeb.TestHelpers.NamedSetup do
     context |> Map.merge(%{user: user})
   end
 
+  def log_admin_in(context), do: do_log_admin_in(context)
+
+  def do_log_admin_in(%{session: _session, admin: admin} = context) do
+    context |> Map.merge(%{params: %{"name" => admin.name}})
+  end
+
+  def do_log_admin_in(%{session: _session} = context) do
+    admin = insert(:admin)
+    context |> Map.merge(%{params: %{"name" => admin.name}, admin: admin})
+  end
+
+  def create_admin(context) do
+    admin = insert(:admin)
+    context |> Map.merge(%{admin: admin})
+  end
+
   def create_user_with_first_page_favourites(context) do
     user = insert(:user)
     _favourites =
@@ -58,9 +74,9 @@ defmodule FizzbuzzexWeb.TestHelpers.NamedSetup do
        Regex.named_captures(~r/ID: (?<id>[\s\S]*?)\nSecret: (?<secret>[\s\S]*?)\nScopes/, text)
   end
 
-  def password_strategy_attrs(%{"id" => id, "secret" => secret}, user) do
-    %{"client_id" => id,
-    "client_secret" => secret,
+  def password_strategy_attrs(user, client_id, client_secret) do
+    %{"client_id" => client_id,
+    "client_secret" => client_secret,
     "grant_type" => "password",
     "username" => user.username,
     "password" => user.password}

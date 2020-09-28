@@ -14,6 +14,10 @@ defmodule FizzbuzzexWeb.Router do
     plug FizzbuzzexWeb.AssignUser
   end
 
+  pipeline :admin do
+    plug FizzbuzzexWeb.EnsureRolePlug, :admin
+  end
+
   pipeline :protected do
     plug Pow.Plug.RequireAuthenticated,
       error_handler: Pow.Phoenix.PlugErrorHandler
@@ -41,7 +45,7 @@ defmodule FizzbuzzexWeb.Router do
   end
 
   scope "/" do
-    pipe_through [:browser, :protected]
+    pipe_through [:browser, :protected, :admin]
 
     oauth_routes()
   end

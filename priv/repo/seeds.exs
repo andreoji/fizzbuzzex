@@ -72,3 +72,11 @@ Fizzbuzzex.Accounts.create_user(%{
   confirm_password: "b123456j",
   email: "brian@acme.com"
 })
+
+Fizzbuzzex.Accounts.create_admin_user(%{
+  name: "admin doe",
+  username: "admind",
+  password: "a123456d",
+  confirm_password: "a123456d",
+  email: "admin@acme.com"
+})

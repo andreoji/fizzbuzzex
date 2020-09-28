@@ -16,6 +16,18 @@ defmodule FizzbuzzexWeb.TestHelpers.Factory do
     }
   end
 
+  def admin_factory do
+    password = sequence(:password, &"a123456d#{&1}")
+    %User{
+      name: sequence(:name, &"admin doe#{&1}"),
+      username: sequence(:username, &"admind#{&1}"),
+      email: sequence(:email, &"admin#{&1}@acme.com"),
+      password: password,
+      password_hash: password |> Password.pbkdf2_hash,
+      role: "admin"
+    }
+  end
+
   def favourite_factory do
     %Favourite{
       state: :false,
