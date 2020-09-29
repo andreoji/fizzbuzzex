@@ -9,7 +9,7 @@ defmodule FizzbuzzexWeb.Features.FavouritesTest do
     response = ApiClient.request(:get,
      "#{base_url()}/api/v1/favourites?page[number]=1&page[size]=15",
      "",
-     [{"accept", "application/vnd.api+json"}], access_token)
+     [json_api_accept_header()], access_token)
     %{"data" => data, "links" => links}  = response |> json_body()
 
     assert %{status_code: 200} = response |> status_code()
@@ -37,7 +37,7 @@ defmodule FizzbuzzexWeb.Features.FavouritesTest do
     response = ApiClient.request(:get,
      "#{base_url()}/api/v1/favourites?page[number]=6666666667&page[size]=15",
      "",
-     [{"accept", "application/vnd.api+json"}], access_token)
+     [json_api_accept_header()], access_token)
     %{"data" => data, "links" => links}  = response |> json_body()
 
     assert %{status_code: 200} = response |> status_code()
@@ -66,7 +66,7 @@ defmodule FizzbuzzexWeb.Features.FavouritesTest do
     response = ApiClient.request(:get,
      "#{base_url()}/api/v1/favourites?page[number]=-1&page[size]=15",
      "",
-     [{"accept", "application/vnd.api+json"}], access_token)
+     [json_api_accept_header()], access_token)
     %{"data" => data, "links" => links}  = response |> json_body()
 
     assert %{status_code: 200} = response |> status_code()
@@ -94,7 +94,7 @@ defmodule FizzbuzzexWeb.Features.FavouritesTest do
     response = ApiClient.request(:get,
      "#{base_url()}/api/v1/favourites?page[number]=6666666668&page[size]=15",
      "",
-     [{"accept", "application/vnd.api+json"}], access_token)
+     [json_api_accept_header()], access_token)
     %{"data" => data, "links" => links}  = response |> json_body()
 
     assert %{status_code: 200} = response |> status_code()
@@ -133,7 +133,7 @@ defmodule FizzbuzzexWeb.Features.FavouritesTest do
     }
     """
     response = ApiClient.request(:post,"#{base_url()}/api/v1/favourites", payload,
-    [{"accept", "application/vnd.api+json"}, {"content-type", "application/vnd.api+json"}], access_token)
+    content_type_negotiation(), access_token)
 
     %{"data" => data}  = response |> json_body()
 
@@ -161,7 +161,7 @@ defmodule FizzbuzzexWeb.Features.FavouritesTest do
     }
     """
     response = ApiClient.request(:post,"#{base_url()}/api/v1/favourites", payload,
-    [{"accept", "application/vnd.api+json"}, {"content-type", "application/vnd.api+json"}], access_token)
+    content_type_negotiation(), access_token)
 
     %{"data" => data}  = response |> json_body()
 
@@ -190,7 +190,7 @@ defmodule FizzbuzzexWeb.Features.FavouritesTest do
       }
       """
       response = ApiClient.request(:post,"#{base_url()}/api/v1/favourites", payload,
-      [{"accept", "application/vnd.api+json"}, {"content-type", "application/vnd.api+json"}], access_token)
+      content_type_negotiation(), access_token)
 
       %{"errors" => errors}  = response |> json_body()
 
@@ -220,7 +220,7 @@ defmodule FizzbuzzexWeb.Features.FavouritesTest do
       }
       """
       response = ApiClient.request(:post,"#{base_url()}/api/v1/favourites", payload,
-      [{"accept", "application/vnd.api+json"}, {"content-type", "application/vnd.api+json"}], access_token)
+      content_type_negotiation(), access_token)
 
       %{"errors" => errors}  = response |> json_body()
 
@@ -250,7 +250,7 @@ defmodule FizzbuzzexWeb.Features.FavouritesTest do
       }
       """
       response = ApiClient.request(:post,"#{base_url()}/api/v1/favourites", payload,
-      [{"accept", "application/vnd.api+json"}, {"content-type", "application/vnd.api+json"}], access_token)
+      content_type_negotiation(), access_token)
 
       %{"errors" => errors}  = response |> json_body()
 
@@ -280,7 +280,7 @@ defmodule FizzbuzzexWeb.Features.FavouritesTest do
       }
       """
       response = ApiClient.request(:post,"#{base_url()}/api/v1/favourites", payload,
-      [{"accept", "application/vnd.api+json"}, {"content-type", "application/vnd.api+json"}], access_token)
+      content_type_negotiation(), access_token)
 
       %{"errors" => errors}  = response |> json_body()
 
@@ -320,7 +320,7 @@ defmodule FizzbuzzexWeb.Features.FavouritesTest do
       }
       """
       response = ApiClient.request(:post,"#{base_url()}/api/v1/favourites", payload,
-      [{"accept", "application/vnd.api+json"}, {"content-type", "application/vnd.api+json"}], access_token)
+      content_type_negotiation(), access_token)
 
       %{"errors" => errors}  = response |> json_body()
 
@@ -349,7 +349,7 @@ defmodule FizzbuzzexWeb.Features.FavouritesTest do
       }
       """
       response = ApiClient.request(:post,"#{base_url()}/api/v1/favourites", payload,
-      [{"accept", "application/vnd.api+json"}, {"content-type", "application/vnd.api+json"}], access_token)
+      content_type_negotiation(), access_token)
 
       %{"errors" => errors}  = response |> json_body()
 
@@ -376,7 +376,7 @@ defmodule FizzbuzzexWeb.Features.FavouritesTest do
       }
       """
       response = ApiClient.request(:post,"#{base_url()}/api/v1/favourites", payload,
-      [{"accept", "application/vnd.api+json"}, {"content-type", "application/vnd.api+json"}], access_token)
+      content_type_negotiation(), access_token)
 
       %{"errors" => errors}  = response |> json_body()
 
@@ -401,7 +401,7 @@ defmodule FizzbuzzexWeb.Features.FavouritesTest do
       }
       """
       response = ApiClient.request(:post,"#{base_url()}/api/v1/favourites", payload,
-      [{"accept", "application/vnd.api+json"}, {"content-type", "application/vnd.api+json"}], access_token)
+      content_type_negotiation(), access_token)
 
       %{"errors" => errors}  = response |> json_body()
 
@@ -421,7 +421,7 @@ defmodule FizzbuzzexWeb.Features.FavouritesTest do
       {}
       """
       response = ApiClient.request(:post,"#{base_url()}/api/v1/favourites", payload,
-      [{"accept", "application/vnd.api+json"}, {"content-type", "application/vnd.api+json"}], access_token)
+      content_type_negotiation(), access_token)
 
       %{"errors" => errors}  = response |> json_body()
 
@@ -450,7 +450,7 @@ defmodule FizzbuzzexWeb.Features.FavouritesTest do
       }
       """
       response = ApiClient.request(:post,"#{base_url()}/api/v1/favourites", payload,
-      [{"accept", "application/vnd.api+json"}, {"content-type", "application/vnd.api+json"}], access_token)
+      content_type_negotiation(), access_token)
 
       assert %{"message" => "Malformed JSON in the body"} = response |> json_body()
 
