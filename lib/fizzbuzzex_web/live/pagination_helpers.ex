@@ -1,7 +1,6 @@
 defmodule FizzbuzzexWeb.PaginationHelpers do
   import Phoenix.HTML
-  import Phoenix.HTML.Link
-  import Phoenix.HTML.Tag
+  import Phoenix.HTML.{Link, Tag}
 
   def pagination_text(pagination) do
     ~e"""

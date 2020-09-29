@@ -25,8 +25,4 @@ defmodule Fizzbuzzex.Accounts do
     User
     |> Repo.get(id)
   end
-
-  def change_user_registration(%User{} = user) do
-    User.create_changeset(user, %{})
-  end
 end

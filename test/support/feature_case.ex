@@ -1,7 +1,6 @@
 defmodule FizzbuzzexWeb.FeatureCase do
 
   use ExUnit.CaseTemplate
-  use Phoenix.ConnTest
 
   using do
     quote do

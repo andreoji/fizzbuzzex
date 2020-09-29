@@ -1,8 +1,7 @@
 defmodule FizzbuzzexWeb.TestHelpers.NamedSetup do
   import Ecto.Query, warn: false
   import FizzbuzzexWeb.TestHelpers.Factory
-  alias Fizzbuzzex.Favourites.Favourite
-  alias Fizzbuzzex.Favourites.Fizzbuzz
+  alias Fizzbuzzex.Favourites.{Favourite, Fizzbuzz}
   alias Fizzbuzzex.Repo
 
   def log_user_in(context), do: do_log_user_in(context)

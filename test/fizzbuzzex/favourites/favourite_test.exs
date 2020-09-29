@@ -1,8 +1,7 @@
 defmodule Fizzbuzzex.Favourites.FavouriteTest do
   use Fizzbuzzex.DataCase
   import Ecto.Query, warn: false
-  alias Fizzbuzzex.Favourites.Favourite
-  alias Fizzbuzzex.Favourites.Fizzbuzz
+  alias Fizzbuzzex.Favourites.{Favourite, Fizzbuzz}
 
   describe "changeset/2" do
     setup [:create_user_with_a_favourite_with_true_status]
