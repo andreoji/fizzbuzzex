@@ -90,18 +90,48 @@ You will get back an access token similar to the following:
 ```
 
 ### A typical GET request:
-### url
+##### Url
 ```
 http://localhost:4000/api/v1/favourites?page[number]=6666666667&page[size]=15
 ```
-### headers
+##### Request headers
 Authorization: `Bearer 41aa68c9003946c7a0a198b3ea4a2923ab9156ea0c7d3eb3feba2a32cbfad471`\
 Accept: `application/vnd.api+json`
 
 
-### JSON-API response:
+##### Response
 
 ```
 {"data":[{"attributes":{"fizzbuzz":"99999999991","number":99999999991,"state":false},"id":"","type":"favourite"},{"attributes":{"fizzbuzz":"99999999992","number":99999999992,"state":false},"id":"","type":"favourite"},{"attributes":{"fizzbuzz":"fizz","number":99999999993,"state":false},"id":"","type":"favourite"},{"attributes":{"fizzbuzz":"99999999994","number":99999999994,"state":false},"id":"","type":"favourite"},{"attributes":{"fizzbuzz":"buzz","number":99999999995,"state":false},"id":"","type":"favourite"},{"attributes":{"fizzbuzz":"fizz","number":99999999996,"state":false},"id":"","type":"favourite"},{"attributes":{"fizzbuzz":"99999999997","number":99999999997,"state":false},"id":"","type":"favourite"},{"attributes":{"fizzbuzz":"99999999998","number":99999999998,"state":false},"id":"","type":"favourite"},{"attributes":{"fizzbuzz":"fizz","number":99999999999,"state":false},"id":"","type":"favourite"},{"attributes":{"fizzbuzz":"buzz","number":100000000000,"state":false},"id":"","type":"favourite"}],"jsonapi":{"version":"1.0"},"links":{"first":"/api/v1/favourites?page[number]=1&page[size]=15","prev":"/api/v1/favourites?page[number]=6666666666&page[size]=15","self":"/api/v1/favourites?page[number]=6666666667&page[size]=15"}}
+```
+
+### A typical POST request:
+##### Url
+```
+http://localhost:4000/api/v1/favourites
+```
+```
+{
+  "data": {
+  	"type": "favourite",
+    "attributes": {
+ 		"number": 15,
+        "fizzbuzz": "fizzbuzz",
+        "state": true
+    }
+  }
+}
+```
+##### Request headers
+Authorization: `Bearer 41aa68c9003946c7a0a198b3ea4a2923ab9156ea0c7d3eb3feba2a32cbfad471`\
+Accept: `application/vnd.api+json`
+Content-type: `application/vnd.api+json`
+
+##### Response location header
+`/api/v1/favourites/2`
+
+##### Response body
+```
+{"data":{"attributes":{"fizzbuzz":"fizzbuzz","number":15,"state":true},"id":"2","type":"favourite"},"jsonapi":{"version":"1.0"}}
 ```
 
