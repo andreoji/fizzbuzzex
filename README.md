@@ -90,10 +90,14 @@ You will get back an access token similar to the following:
 ```
 
 ### A typical GET request:
-
+### url
 ```
 http://localhost:4000/api/v1/favourites?page[number]=6666666667&page[size]=15
 ```
+### headers
+Authorization: `Bearer 41aa68c9003946c7a0a198b3ea4a2923ab9156ea0c7d3eb3feba2a32cbfad471`\
+Accept: `application/vnd.api+json`
+
 
 ### JSON-API response:
 
