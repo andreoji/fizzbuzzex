@@ -30,9 +30,9 @@ Web users and API clients can follow links and favourite numbers between 1 and 1
 
 The pagination is custom written, page size can be changed via a url parameter:
 
-  * http://localhost:4000/favourites?page[number]=1&page[size]=15
+  * `http://localhost:4000/favourites?page[number]=1&page[size]=100`
 
-  * http://localhost:4000/favourites?page[number]=1&page[size]=20
+  * `http://localhost:4000/favourites?page[number]=1&page[size]=15`
 
   * The max page size allowed is 100 which is also the default homepage size.
 
@@ -45,22 +45,23 @@ Phoenix LiveView provides a rich, real-time user experience for web users.
 
 ### Fizzbuzzex API
 
+The API design follows the [`JSON:API`](https://jsonapi.org/format) specification
+
 As we are going to generate an access token, start the server interactively
 
 `iex -S mix phx.server`
 
-The API design follows the [`JSON:API`](https://jsonapi.org/format) specification
 
 ### Oauth2 application
 
-  * Visit http://localhost:4000/oauth/applications.
-  * Login with admind / a123456d.
+  * Visit http://localhost:4000/oauth/applications
+  * Login with admind / a123456d
   * Create a new application with `urn:ietf:wg:oauth:2.0:oob` as Redirect URI
-  * Save the application, and take note of of the ID and Secret.
+  * Save the application, and take note of of the ID and Secret
   
 ### Access token
   
-Now we got everything to generate the access token.
+Now we've got everything to generate the access token.
 Paste the following hash into the iex session once the values of `client_id` and `client_secret` have been changed for those of the newly created app, and press return.
 
 ```ruby
@@ -133,5 +134,56 @@ Content-type: `application/vnd.api+json`
 ##### Response body
 ```
 {"data":{"attributes":{"fizzbuzz":"fizzbuzz","number":15,"state":true},"id":"2","type":"favourite"},"jsonapi":{"version":"1.0"}}
+```
+
+### Errors
+
+##### 422 Unprocessable Entity
+
+The API will respond with a 422 Unprocessable Entity depending on the particualr problem with the payload.\
+In the example below the fizzbuzz value of the number is incorrect
+##### Url
+```
+http://localhost:4000/api/v1/favourites
+```
+```
+{
+  "data": {
+  	"type": "favourite",
+    "attributes": {
+ 		"number": 15,
+        "fizzbuzz": "fizz",
+        "state": true
+    }
+  }
+}
+```
+##### Error response
+```
+{"errors":[{"detail":"Fizzbuzz of 15 is fizzbuzz, incorrect value of fizz given.","source":{"pointer":"#/data/attributes/number"},"title":"Invalid fizzbuzz value"}]}
+```
+
+##### 400 Bad Request
+The API will respond with a 400 Bad Request if the payload is malformed.\
+In the example below a comma is missing after the type property and its value.
+##### Url
+```
+http://localhost:4000/api/v1/favourites
+```
+```
+{
+  "data": {
+  	"type": "favourite"
+    "attributes": {
+ 		"number": 15,
+        "fizzbuzz": "fizz",
+        "state": true
+    }
+  }
+}
+```
+##### Error response
+```
+{"message":"Malformed JSON in the body"}
 ```
 
