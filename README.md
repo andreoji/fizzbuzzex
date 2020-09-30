@@ -15,6 +15,7 @@
 Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
 There are 8 user accounts and 1 admin account in the seeds file.\
+
 Login with any user account, to start favouriting numbers, for example:
 
 ```
@@ -24,8 +25,8 @@ password: j123456l
 
 ## Description
 
-This app fullfils the requirement of a Fizzbuzz web app and API written in Elixir.
-Web users and API clients can follow links and favourite numbers between 1 and 100_000_000_000.
+Fizzbuzzex fullfils the requirement of a Fizzbuzz web app and API written in Elixir.
+Web users and programmatic API clients can follow links and favourite numbers between 1 and 100_000_000_000.
 
 ### Pagination
 
@@ -35,7 +36,7 @@ The pagination is custom written, page size can be changed via a url parameter:
 
   * `http://localhost:4000/favourites?page[number]=1&page[size]=15`
 
-  * The max page size allowed is 100 which is also the default homepage size.
+  * The max page size allowed is 100 which is also the default homepage size
 
   * The min page size allowed is 15
 
@@ -114,6 +115,7 @@ Accept: `application/vnd.api+json`
 ```
 http://localhost:4000/api/v1/favourites
 ```
+##### Payload
 ```
 {
   "data": {
@@ -151,6 +153,7 @@ In the example below the fizzbuzz value of the number is incorrect
 ```
 http://localhost:4000/api/v1/favourites
 ```
+##### Payload
 ```
 {
   "data": {
