@@ -128,7 +128,7 @@ http://localhost:4000/api/v1/favourites
 ```
 ##### Request headers
 Authorization: `Bearer 41aa68c9003946c7a0a198b3ea4a2923ab9156ea0c7d3eb3feba2a32cbfad471`\
-Accept: `application/vnd.api+json`
+Accept: `application/vnd.api+json`\
 Content-type: `application/vnd.api+json`
 
 ##### Response location header
@@ -139,6 +139,8 @@ Content-type: `application/vnd.api+json`
 {"data":{"attributes":{"fizzbuzz":"fizzbuzz","number":15,"state":true},"id":"2","type":"favourite"},"jsonapi":{"version":"1.0"}}
 ```
 
+The above POST payload favourites a number by setting its state to `true`.\
+To unfavourite the same number toggle the state property to `false`
 ### Errors
 
 ##### 422 Unprocessable Entity
