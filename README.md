@@ -14,11 +14,12 @@
   
 Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
-You can now login using
+There are 8 user accounts and 1 admin account in the seeds file.\
+Login with any user account, to start favouriting numbers, for example:
 
 ```
-username: johnl",
-password: j123456l"
+username: johnl
+password: j123456l
 ```
 
 ## Description
