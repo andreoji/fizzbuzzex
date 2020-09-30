@@ -61,8 +61,8 @@ As we are going to generate an access token, start the server interactively
   
 ### Access token
   
-Now we've got everything to generate the access token.
-Paste the following hash into the iex session once the values of `client_id` and `client_secret` have been changed for those of the newly created app, and press return.
+Now we've got everything to generate the access token.\
+Paste the following hash into the iex session replacing the values of `client_id` and `client_secret` for those of the newly created app, and press return.
 
 ```ruby
 john_valid_request  = %{"client_id" => "ac30330db052feb6cc9122f8f1f1bf5c0d9b1b6c6b2ede9262e50da3b55d3a92",
@@ -89,6 +89,8 @@ You will get back an access token similar to the following:
    token_type: "bearer"
  }}
 ```
+
+The value of the access token can now be used to form the Authorization header for requests, using a client such as ARC or Postman.
 
 ### A typical GET request:
 ##### Url
