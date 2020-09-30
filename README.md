@@ -142,7 +142,7 @@ Content-type: `application/vnd.api+json`
 ```
 
 The above POST payload favourites a number by setting its state to `true`.\
-To unfavourite the same number toggle the state property to `false`
+To unfavourite the same number toggle the state property to `false` and resend.
 ### Errors
 
 ##### 422 Unprocessable Entity
