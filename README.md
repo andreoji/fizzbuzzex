@@ -3,11 +3,11 @@
 ### Installation
   * Clone the Fizzbuzzex repo
   * Install dependencies with `mix deps.get`
-  * Edit the necessary files to configure your dev and test databases for you local postgres instance
+  * Edit the necessary files to configure your dev and test databases for your local postgres instance
   * Create, migrate and seed your database with `mix ecto.setup`
 
 ### Run the tests
- As the featue tests use [`Wallaby`](https://github.com/elixir-wallaby/wallaby), set up its [`development dependencies`](https://github.com/elixir-wallaby/wallaby#development-dependencies) before running the tests.
+ As the feature tests use [`Wallaby`](https://github.com/elixir-wallaby/wallaby), set up its [`development dependencies`](https://github.com/elixir-wallaby/wallaby#development-dependencies) before running the tests with:
 
   * `mix test`
   
@@ -46,6 +46,8 @@ The pagination is custom written, page size can be changed via a url parameter:
 
 Phoenix LiveView provides a rich, real-time user experience for web users.
 
+I hadn't used LiveView before, so this was an opportunity to learn a bit about it.
+
 
 ### Fizzbuzzex API
 
@@ -59,7 +61,7 @@ As we are going to generate an access token, start the server interactively
 ### Oauth2 application
 
   * Visit http://localhost:4000/oauth/applications
-  * Login with admin@acme.com / a123456d
+  * Login with `admin@acme.com / a123456d`
   * Create a new application with `urn:ietf:wg:oauth:2.0:oob` as Redirect URI
   * Save the application, and take note of of the ID and Secret
   
@@ -94,6 +96,12 @@ You will get back an access token similar to the following:
  }}
 ```
 
+### Token refresh
+  
+I've left this as out of scope for now.
+
+### API Resources
+
 The value of the access token can now be used to form the Authorization header for requests, using a client such as ARC or Postman.
 
 ### A typical GET request:
@@ -111,6 +119,8 @@ Accept: `application/vnd.api+json`
 ```
 {"data":[{"attributes":{"fizzbuzz":"99999999991","number":99999999991,"state":false},"id":"","type":"favourite"},{"attributes":{"fizzbuzz":"99999999992","number":99999999992,"state":false},"id":"","type":"favourite"},{"attributes":{"fizzbuzz":"fizz","number":99999999993,"state":false},"id":"","type":"favourite"},{"attributes":{"fizzbuzz":"99999999994","number":99999999994,"state":false},"id":"","type":"favourite"},{"attributes":{"fizzbuzz":"buzz","number":99999999995,"state":false},"id":"","type":"favourite"},{"attributes":{"fizzbuzz":"fizz","number":99999999996,"state":false},"id":"","type":"favourite"},{"attributes":{"fizzbuzz":"99999999997","number":99999999997,"state":false},"id":"","type":"favourite"},{"attributes":{"fizzbuzz":"99999999998","number":99999999998,"state":false},"id":"","type":"favourite"},{"attributes":{"fizzbuzz":"fizz","number":99999999999,"state":false},"id":"","type":"favourite"},{"attributes":{"fizzbuzz":"buzz","number":100000000000,"state":false},"id":"","type":"favourite"}],"jsonapi":{"version":"1.0"},"links":{"first":"/api/v1/favourites?page[number]=1&page[size]=15","prev":"/api/v1/favourites?page[number]=6666666666&page[size]=15","self":"/api/v1/favourites?page[number]=6666666667&page[size]=15"}}
 ```
+##### Status
+`200 OK`
 
 ### A typical POST request:
 ##### Url
@@ -142,6 +152,9 @@ Content-type: `application/vnd.api+json`
 ```
 {"data":{"attributes":{"fizzbuzz":"fizzbuzz","number":15,"state":true},"id":"2","type":"favourite"},"jsonapi":{"version":"1.0"}}
 ```
+
+##### Status
+`201 Created`
 
 The above POST payload favourites a number by setting its state to `true`.\
 To unfavourite the same number toggle the state property to `false` and resend.
