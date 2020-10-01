@@ -157,7 +157,7 @@ Content-type: `application/vnd.api+json`
 ##### Status
 `201 Created`
 
-The above POST payload favourites a number by setting its state to `true`.\
+The above POST payload favourites a number as the state property is set to `true`.\
 To unfavourite the same number toggle the state property to `false` and resend.
 ### Errors
 
