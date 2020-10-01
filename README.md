@@ -68,7 +68,7 @@ As we are going to generate an access token, start the server interactively
   
 ### Access token
   
-Now we've got everything to generate the access token.\
+Now we've got everything to generate an access token.\
 Paste the following hash into the iex session replacing the values of `client_id` and `client_secret` for those of the newly created app, and press return.
 
 ```ruby
@@ -84,7 +84,7 @@ Now paste the following into iex and press return:
 ExOauth2Provider.Token.grant(john_valid_request, otp_app: :fizzbuzzex)
 ```
 
-You will get back an access token similar to the following:
+You will get back an access token tuple similar to the following:
 ```ruby
 {:ok,
  %{
