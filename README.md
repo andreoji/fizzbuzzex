@@ -163,7 +163,9 @@ To unfavourite the same number toggle the state property to `false` and resend.
 
 ##### 422 Unprocessable Entity
 
-The API will respond with a 422 Unprocessable Entity depending on the particualr problem with the payload.\
+The API will respond with a 422 Unprocessable Entity for a variety of payload issues.\
+The errors returned will highlight the particular problem(s) with the payload.
+
 In the example below the fizzbuzz value of the number is incorrect
 ##### Url
 ```
