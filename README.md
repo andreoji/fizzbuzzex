@@ -191,7 +191,7 @@ http://localhost:4000/api/v1/favourites
 
 ##### 400 Bad Request
 The API will respond with a 400 Bad Request if the payload is malformed.\
-In the example below a comma is missing after the type property and its value.
+In the example below a comma is missing after `"type": "favourite"`.
 ##### Url
 ```
 http://localhost:4000/api/v1/favourites
