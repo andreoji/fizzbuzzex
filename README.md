@@ -28,6 +28,7 @@ password: j123456l
 ## Description
 
 Fizzbuzzex fullfils the requirement of a Fizzbuzz web app and API written in Elixir.
+
 Web users and programmatic API clients can follow links and favourite numbers between 1 and 100_000_000_000.
 
 ### Pagination
@@ -102,7 +103,7 @@ I've left this as out of scope for now.
 
 ### API Resources
 
-The value of the access token can now be used to form the Authorization header for requests, using a client such as ARC or Postman.
+The value of the access token can now be used to form the Authorization header for resouce requests, using a client such as ARC or Postman.
 
 ### A typical GET request:
 ##### Url
