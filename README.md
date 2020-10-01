@@ -7,6 +7,8 @@
   * Create, migrate and seed your database with `mix ecto.setup`
 
 ### Run the tests
+ As the featue tests use [`Wallaby`](https://github.com/elixir-wallaby/wallaby), set up its [`development dependencies`](https://github.com/elixir-wallaby/wallaby#development-dependencies) before running the tests.
+
   * `mix test`
   
 ### Start Phoenix
@@ -14,7 +16,7 @@
   
 Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
-There are 8 user accounts and 1 admin account in the seeds file.\
+There are 8 user accounts and 1 admin account in the seeds file.
 
 Login with any user account, to start favouriting numbers, for example:
 
