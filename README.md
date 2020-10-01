@@ -21,7 +21,7 @@ There are 8 user accounts and 1 admin account in the seeds file.
 Login with any user account, to start favouriting numbers, for example:
 
 ```
-username: johnl
+email: john@acme.com
 password: j123456l
 ```
 
@@ -59,7 +59,7 @@ As we are going to generate an access token, start the server interactively
 ### Oauth2 application
 
   * Visit http://localhost:4000/oauth/applications
-  * Login with admind / a123456d
+  * Login with admin@acme.com / a123456d
   * Create a new application with `urn:ietf:wg:oauth:2.0:oob` as Redirect URI
   * Save the application, and take note of of the ID and Secret
   
